@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" href="<?= base_url() ?>/img/logo.png">
-  <title><?= $title; ?> - POS</title>
+  <title><?= $title; ?> - QC</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -155,9 +155,9 @@
     <!-- Logo -->
     <a href="<?= base_url("Home") ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>P</span>
+      <span class="logo-mini"><b>Q</b>C</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Ascendant</b> POS</span>
+      <span class="logo-lg"><b>Quality</b> Control</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">

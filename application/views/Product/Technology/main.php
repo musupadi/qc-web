@@ -1,11 +1,11 @@
 
-    <section class="content-header">
+<section class="content-header">
       <h1>
-        Master Data
+        Technology
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-newspaper-o"></i>Master Data</a></li>
-        <li class="active">Vendor</li>
+        <li><a href="#"><i class="fa fa-newspaper-o"></i>Product</a></li>
+        <li class="active">Product</li>
       </ol>
     </section>
 
@@ -15,45 +15,46 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Vendor</h3>
+              <h3 class="box-title">Product -> Technology</h3>
             </div>
             <!-- /.box-header -->
-            <a data-toggle="modal" data-target="#modal-success" class="btn btn-success btn-sm" style="width: 100px; margin-left: 10px"><i class="fa fa-fw fa-plus"></i>Add Vendor</a>
-            <?= $this->session->flashdata('Pesan') ?>
+            <a data-toggle="modal" data-target="#modal-success" class="btn btn-success btn-sm" style="width: 120px; margin-left: 10px"><i class="fa fa-fw fa-plus"></i>Add Technology</a>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th style="width: 10px;">#</th>
-                  <th>Vendor Name</th>
+                  <th>Technology Name</th>
                   <th style="width: 40px;">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                   <?php $i = 1; ?>
-                <?php foreach ($vendor as $data) : ?>
+                <?php
+                foreach ($technology as $data){
+
+                ?>
                 <tr>
-                  <td><?php echo $i++; ?></td>
+                  <td><?= $i++; ?></td>
                   <td><?php echo $data->label?></td>
                   <td style="text-align: center;">
-                    <a href="<?php echo base_url('Vendor/EditVendor/'.$data->id);?>">
+                    <a href="<?php echo base_url('User/EditRole/'.$data->id);?>">
                       <i class="fa fa-fw fa-pencil"></i>
                     </a> 
-                    <a href="<?php echo base_url('Vendor/HapusVendor/'.$data->id);?>"onclick="return confirm('yakin?');">
+                    <a href="<?php echo base_url('User/HapusRole/'.$data->id);?>" onclick="return confirm('yakin?');">
                       <i class="fa fa-fw fa-trash"></i>
                     </a>
                     </div>
-                    </div>  
+                    </div>
                   </td>
                 </tr>
-                <?php  endforeach; ?>
+                <?php  } ?>
                 </tbody>
-
                 <tfoot>
                 <tr>
-                  <th style="width: 10px;">#</th>
-                  <th>Vendor Name</th>
+                  <th style="width: 10px;">Item Code</th>
+                  <th>Technology Name</th>
                   <th style="width: 40px;">Action</th>
                 </tr>
                 </tfoot>
@@ -63,20 +64,20 @@
             <!-- /.box-body -->
             <!-- INPUT -->
             <div class="modal modal-success fade" id="modal-success">
-            <?php echo form_open_multipart('Vendor/TambahVendor/')?>
-                <form role="form" action="<?php echo base_url('Vendor/TambahVendor/')?>" method="post" >
+            <?php echo form_open_multipart('Product/AddTechnology/')?>
+                <form role="form" action="<?php echo base_url('Product/AddTechnology/')?>" method="post" >
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Input Vendor</h4>
+                        <h4 class="modal-title">Input Kategori</h4>
                     </div>
                     <div class="modal-body">
                         <div class="box-body">
                             <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Vendor Name</label>
-                              <input type="text" class="form-control" name="label" placeholder="Vendor Name" required>
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Name</label>
+                              <input type="text" class="form-control" name="label" placeholder="Label Name" required>
                               <p class="text-red"><?php echo form_error('label')?></p>
                             </div>
                     </div>

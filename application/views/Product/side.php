@@ -24,7 +24,7 @@
         <?php if ( $data->id_role == 1 || $data->id_role == 2) : ?>
           <li><a href="<?php echo base_url("Home")?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
           <li class=""><a href="<?php echo base_url("Transaction")?>"><i class="fa fa-exchange"></i> <span>Checking Result</span></a></li>
-          <li class="treeview">
+          <li class="treeview active">
           <a href="#">
             <i class="fa fa-briefcase"></i> <span>Product Master</span>
             <span class="pull-right-container">
@@ -32,12 +32,12 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url('Inventory/item')?>"><i class="fa fa-cube"></i>Product</a></li>
-            <li><a href="<?php echo base_url('Inventory/Warehouse')?>"><i class="fa fa-home"></i>Category</a></li>
-            <li><a href="<?php echo base_url('Inventory/Warehouse')?>"><i class="fa fa-home"></i>Technology</a></li>
+            <li class="active"><a href="<?php echo base_url('Product')?>"><i class="fa fa-cube"></i>Product</a></li>
+            <li><a href="<?php echo base_url('Product/Category')?>"><i class="fa fa-home"></i>Category</a></li>
+            <li><a href="<?php echo base_url('Product/Technology')?>"><i class="fa fa-home"></i>Technology</a></li>
           </ul>
         </li>
-        <li class="treeview active">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-users"></i> <span>User Management</span>
             <span class="pull-right-container">
@@ -45,7 +45,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="<?php echo base_url('User/Role')?>"><i class="fa fa-unlock-alt"></i>Role</a></li>
+            <li><a href="<?php echo base_url('User/Role')?>"><i class="fa fa-unlock-alt"></i>Role</a></li>
             <li><a href="<?php echo base_url('User')?>"><i class="fa fa-user"></i>User</a></li>
           </ul>
         </li>

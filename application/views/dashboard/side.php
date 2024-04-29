@@ -23,17 +23,18 @@
         <!-- Super Admin & Admin -->
         <?php if ( $data->id_role == 1 || $data->id_role == 2) : ?>
           <li class="active"><a href="<?php echo base_url("Home")?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-          <li class=""><a href="<?php echo base_url("Transaction")?>"><i class="fa fa-exchange"></i> <span>Transaction</span></a></li>
+          <li class=""><a href="<?php echo base_url("Transaction")?>"><i class="fa fa-exchange"></i> <span>Checking Result</span></a></li>
           <li class="treeview">
           <a href="#">
-            <i class="fa fa-briefcase"></i> <span>Master Data</span>
+            <i class="fa fa-briefcase"></i> <span>Product Master</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url('Inventory/item')?>"><i class="fa fa-cube"></i>Product</a></li>
-            <li><a href="<?php echo base_url('Inventory/Warehouse')?>"><i class="fa fa-home"></i>Category</a></li>
+            <li><a href="<?php echo base_url('Product')?>"><i class="fa fa-cube"></i>Product</a></li>
+            <li><a href="<?php echo base_url('Product/Category')?>"><i class="fa fa-home"></i>Category</a></li>
+            <li><a href="<?php echo base_url('Product/Technology')?>"><i class="fa fa-home"></i>Technology</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -48,7 +49,7 @@
             <li><a href="<?php echo base_url('User')?>"><i class="fa fa-user"></i>User</a></li>
           </ul>
         </li>
-        <li class=""><a href="<?php echo base_url("Announcement")?>"><i class="fa fa-history"></i> <span>History Transaction</span></a></li>
+        <li class=""><a href="<?php echo base_url("Announcement")?>"><i class="fa fa-history"></i> <span>Logs</span></a></li>
         <li><a href="<?php echo base_url("Login/logout")?>"onclick="return confirm('are you going to logout?');"><i class="fa fa-user-times"></i> <span>Sign Out</span></a></li>
         <?php endif ?>
       </ul>
