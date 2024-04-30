@@ -1,5 +1,5 @@
 
-<section class="content-header">
+    <section class="content-header">
       <h1>
         Logs
       </h1>
@@ -17,18 +17,17 @@
               <h3 class="box-title">Logs</h3>
             </div>
             <!-- /.box-header -->
-            <a href="<?php echo base_url('Qc/Addqc')?>" class="btn btn-success btn-sm" style="margin-left: 10px"><i class="fa fa-fw fa-plus"></i>Input Production</a>
+            <a data-toggle="modal" data-target="#modal-success" class="btn btn-success btn-sm" style="margin-left: 10px"><i class="fa fa-fw fa-plus"></i>PDF</a>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>No</th>
-                  <th>Production Date</th>
-                  <th>Production Code</th>
-                  <th>Product Name</th>
-                  <th>LN</th>
-                  <th>Qty (kg)</th>
+                  <th>Transaction Date</th>
+                  <th>PIC Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -39,22 +38,20 @@
                 ?>
                 <tr>
                   <td><?php echo $i++?></td>
-                  <td><?php echo date('d-F-Y', strtotime($data->production_date)); ?></td>
-                  <td><?php echo $data->code?></td>
-                  <td><?php echo $data->label?></td>
-                  <td><?php echo $data->load_number?></td>
-                  <td><?php echo $data->qty?></td>
+                  <td><?php echo $data->created_at?></td>
+                  <td><?php echo $data->name?></td>
+                  <td><?php echo $data->status?></td>
+                  <td><?php echo $data->action?></td>
                 </tr>
                 <?php  } ?>
                 </tbody>
                 <tfoot>
                 <tr>
                   <th>No</th>
-                  <th>Production Date</th>
-                  <th>Production Code</th>
-                  <th>Product Name</th>
-                  <th>LN</th>
-                  <th>Qty (kg)</th>
+                  <th>Transaction Date</th>
+                  <th>PIC Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
                 </tfoot>
               </table>

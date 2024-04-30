@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class QC extends CI_Controller {
+class Qc extends CI_Controller {
 
     public function __construct(){
         parent::__construct();
@@ -13,12 +13,9 @@ class QC extends CI_Controller {
     }
     private function rulesProduct(){
         return [
-            ['field' => 'code','label' => 'code','rules' => 'required'],
-            ['field' => 'label','label' => 'label','rules' => 'required'],
-            ['field' => 'color','label' => 'color','rules' => 'required'],
-            ['field' => 'series','label' => 'series','rules' => 'required'],
-            ['field' => 'id_category','label' => 'id_category','rules' => 'required'],
-            ['field' => 'id_technology','label' => 'id_technology','rules' => 'required']
+            ['field' => 'id','label' => 'id','rules' => 'required'],
+            ['field' => 'load_number','label' => 'load_number','rules' => 'required'],
+            ['field' => 'qty','label' => 'qty','rules' => 'required']
         ];
     }
     private function rulesCategory(){
@@ -31,10 +28,10 @@ class QC extends CI_Controller {
     public function index()
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
-        $data['product'] = $this->Models->GetAllProduct();
+        $data['Logs'] = $this->Models->QC("","","","");
         $data['technology'] = $this->Models->getAll('technology');
         $data['category'] = $this->Models->getAll('category');
-        $data['title'] = 'QC';
+        $data['title'] = 'Logs';
         $this->load->view('dashboard/header',$data);
         $this->load->view('QC/side',$data);
         $this->load->view('QC/main',$data);
@@ -48,25 +45,28 @@ class QC extends CI_Controller {
         $data['product'] = $this->Models->GetAllProduct();
         $data['technology'] = $this->Models->getAll('technology');
         $data['category'] = $this->Models->getAll('category');
-        $data['title'] = 'Product';
+        $data['title'] = 'QC';
         if($this->form_validation->run() === FALSE){
             $this->load->view('dashboard/header',$data);
-            $this->load->view('Product/side',$data);
-            $this->load->view('Product/main',$data);
+            $this->load->view('QC/side',$data);
+            $this->load->view('QC/main',$data);
             $this->load->view('dashboard/footer');
         }else{          
-            $data2['code'] = $this->input->post('code');
-            $data2['label'] = $this->input->post('label');
-            $data2['color'] = $this->input->post('color');
-            $data2['series'] = $this->input->post('series');
-            $data2['code_category'] = $this->input->post('code_category');
-            $data2['id_category'] = $this->input->post('id_category');
-            $data2['id_technology'] = $this->input->post('id_technology');
-            $data2['created_by'] = $ID[0]->id;;
-            $data2['updated_by'] = $ID[0]->id;;
-            $this->Models->insert('product',$data2);
+            $Product = $this->Models->getID('product','id',$this->input->post('id'));
+            $data2['id_product'] = $this->input->post('id');
+            $data2['load_number'] = $this->input->post('load_number');
+            $data2['qty'] = $this->input->post('qty');
+            $data2['production_date'] = $this->input->post('production_date');
+            $data2['created_by'] = $ID[0]->id;
+            $data2['updated_by'] = $ID[0]->id;
+            $this->Models->insert('qc',$data2);
+
+            $logs['action'] = "Menginput Product ".$Product[0]->label." > ".$this->input->post('qty');
+            $logs['created_by'] = $ID[0]->id;;
+            $logs['updated_by'] = $ID[0]->id;;
+            $this->Models->insert('logs',$logs);
             $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
-            redirect(base_url('Product'));
+            redirect(base_url('Qc'));
         }
     }
     public function Edit($id){
@@ -100,69 +100,20 @@ class QC extends CI_Controller {
         redirect(base_url('User/Role'));
     }
 
-    //Category
-    public function Category()
+    //Add QC
+    public function Addqc()
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
-        $data['category'] = $this->Models->getAll('category');
-        $data['title'] = 'Category';
-        $this->load->view('dashboard/header',$data);
-        $this->load->view('Product/Category/side',$data);
-        $this->load->view('Product/Category/main',$data);
-        $this->load->view('dashboard/footer');
-    }
-    public function AddCategory(){
-        $this->form_validation->set_rules($this->rulesCategory());
-        if($this->form_validation->run() === FALSE){
-            $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
-            $data['category'] = $this->Models->getAll('category');
-            $data['title'] = 'Category';
-            $this->load->view('dashboard/header',$data);
-            $this->load->view('Product/Category/side',$data);
-            $this->load->view('Product/Category/main',$data);
-            $this->load->view('dashboard/footer');
-        }else{
-            $id = $this->Models->getID('user','username',$this->session->userdata('nama'));         
-            $data['label'] = $this->input->post('label');
-            $data['created_by'] = $id[0]->id;;
-            $data['updated_by'] = $id[0]->id;;
-            $this->Models->insert('category',$data);
-            $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
-            redirect(base_url('Product/Category'));
-        }
-    }
-
-    //Technology
-    public function Technology()
-    {
-        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+        $data['product'] = $this->Models->GetAllProduct();
         $data['technology'] = $this->Models->getAll('technology');
-        $data['title'] = 'Technology';
+        $data['category'] = $this->Models->getAll('category');
+        $data['title'] = 'QC';
         $this->load->view('dashboard/header',$data);
-        $this->load->view('Product/Technology/side',$data);
-        $this->load->view('Product/Technology/main',$data);
+        $this->load->view('QC/side',$data);
+        $this->load->view('QC/Add/main',$data);
         $this->load->view('dashboard/footer');
     }
-    public function AddTechnology(){
-        $this->form_validation->set_rules($this->rulesCategory());
-        if($this->form_validation->run() === FALSE){
-            $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
-            $data['technology'] = $this->Models->getAll('technology');
-            $data['title'] = 'Category';
-            $this->load->view('dashboard/header',$data);
-            $this->load->view('Product/Category/side',$data);
-            $this->load->view('Product/Category/main',$data);
-            $this->load->view('dashboard/footer');
-        }else{
-            $id = $this->Models->getID('user','username',$this->session->userdata('nama'));         
-            $data['label'] = $this->input->post('label');
-            $data['created_by'] = $id[0]->id;;
-            $data['updated_by'] = $id[0]->id;;
-            $this->Models->insert('technology',$data);
-            $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
-            redirect(base_url('Product/Technology'));
-        }
-    }
+    
 
 }
 

@@ -4,7 +4,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 1
     </div>
-    <strong>Copyright &copy; 2024 <a href="<?php base_url() ?>">Ascendant POS</a>.</strong> All rights
+    <strong>Copyright &copy; 2024 <a href="<?php base_url() ?>">Ascendant Network</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -278,7 +278,7 @@
 <!-- DataTables -->
 <script src="<?php echo base_url();?>asset/AdminLTE-2.4.18/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>asset/AdminLTE-2.4.18/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="<?= base_url('vendor/components/chart.js/dist/Chart.min.js') ?>"></script>
+
 <script>
 $(document).ready(function() {
     $('.js-example-basic-multiple').select2();

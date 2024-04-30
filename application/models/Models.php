@@ -50,7 +50,42 @@ class Models extends CI_Model {
         return $data;
     }
 
+    public function Logs($start_date,$end_date,$user){
+        $this->db->select('a.id,a.status,a.action,b.name,a.created_at');
+        $this->db->from('logs a');
+        $this->db->join('user b','a.created_by = b.id','left');
+        if($start_date != "" && $end_date != ""){
+            $this->db->where('created_at >=', $startDate);
+            $this->db->where('created_at <=', $endDate);
+        }else if($start_date != ""){
+            $this->db->where('created_at >=', $startDate);
+        }
+        if($user != ""){
+            $this->db->where('created_by', $user);
+        }
+        $data = $this->db->get()->result();
+        return $data;
+    }
 
+    public function QC($start_date,$end_date,$user,$id_product){
+        $this->db->select('a.id,a.production_date,a.qty,a.load_number,a.created_at,b.code,b.label');
+        $this->db->from('qc a');
+        $this->db->join('product b','a.id_product = b.id','left');
+        if($start_date != "" && $end_date != ""){
+            $this->db->where('created_at >=', $startDate);
+            $this->db->where('created_at <=', $endDate);
+        }else if($start_date != ""){
+            $this->db->where('created_at >=', $startDate);
+        }
+        if($user != ""){
+            $this->db->where('created_by', $user);
+        }
+        if($id_product != ""){
+            $this->db->where('id_product', $id_product);
+        }
+        $data = $this->db->get()->result();
+        return $data;
+    }
 
 
 
