@@ -23,8 +23,8 @@
         <!-- Super Admin & Admin -->
         <?php if ( $data->id_role == 1 || $data->id_role == 2) : ?>
           <li><a href="<?php echo base_url("Home")?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-          <li><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Checking Result</span></a></li>
-          <li class="treeview active">
+          <li class="active"><a href="<?php echo base_url("Transaction")?>"><i class="fa fa-exchange"></i> <span>Checking Result</span></a></li>
+          <li class="treeview">
           <a href="#">
             <i class="fa fa-briefcase"></i> <span>Product Master</span>
             <span class="pull-right-container">
@@ -32,7 +32,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="<?php echo base_url('Product')?>"><i class="fa fa-cube"></i>Product</a></li>
+            <li><a href="<?php echo base_url('Product')?>"><i class="fa fa-cube"></i>Product</a></li>
             <li><a href="<?php echo base_url('Product/Category')?>"><i class="fa fa-home"></i>Category</a></li>
             <li><a href="<?php echo base_url('Product/Technology')?>"><i class="fa fa-home"></i>Technology</a></li>
           </ul>

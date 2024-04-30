@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2024 at 04:57 AM
+-- Generation Time: Apr 30, 2024 at 05:57 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.2.34
 
@@ -70,6 +70,24 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`id`, `code`, `label`, `color`, `series`, `code_category`, `id_category`, `id_technology`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
 (0, 'TEST123', 'Test Product', 'Test', 'Test', '', 1, 1, '2024-04-30 09:55:40', 2, '0000-00-00 00:00:00', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qc`
+--
+
+CREATE TABLE `qc` (
+  `id` int(11) NOT NULL,
+  `id_product` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `load_number` varchar(255) NOT NULL,
+  `qty` bigint(20) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -161,6 +179,12 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `qc`
+--
+ALTER TABLE `qc`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `role`
 --
 ALTER TABLE `role`
@@ -187,6 +211,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `qc`
+--
+ALTER TABLE `qc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `role`
