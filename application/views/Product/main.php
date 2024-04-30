@@ -40,13 +40,13 @@
 
                 ?>
                 <tr>
-                  <td><?= $i++; ?></td>
+                  <td><?php echo $data->code?></td>
                   <td><?php echo $data->label?></td>
-                  <td><?php echo $data->label?></td>
-                  <td><?php echo $data->label?></td>
-                  <td><?php echo $data->label?></td>
-                  <td><?php echo $data->label?></td>
-                  <td><?php echo $data->label?></td>
+                  <td><?php echo $data->category?></td>
+                  <td><?php echo $data->code_category?></td>
+                  <td><?php echo $data->technology?></td>
+                  <td><?php echo $data->color?></td>
+                  <td><?php echo $data->series?></td>
                   <td style="text-align: center;">
                     <a href="<?php echo base_url('User/EditRole/'.$data->id);?>">
                       <i class="fa fa-fw fa-pencil"></i>
@@ -78,27 +78,59 @@
             <!-- /.box-body -->
             <!-- INPUT -->
             <div class="modal modal-success fade" id="modal-success">
-            <?php echo form_open_multipart('User/TambahRole/')?>
-                <form role="form" action="<?php echo base_url('User/TambahRole/')?>" method="post" >
+            <?php echo form_open_multipart('Product/Add')?>
+                <form role="form" action="<?php echo base_url('Product/Add')?>" method="post" >
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Input Kategori</h4>
+                        <h4 class="modal-title">Input Product</h4>
                     </div>
                     <div class="modal-body">
                         <div class="box-body">
                             <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Role Name</label>
-                              <input type="text" class="form-control" name="label" placeholder="Role Name" required>
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Item Code</label>
+                              <input type="text" class="form-control" name="code" placeholder="Item Code" required>
+                              <p class="text-red"><?php echo form_error('code')?></p>
+                            </div>
+                            <div class="form-group">
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Product Name</label>
+                              <input type="text" class="form-control" name="label" placeholder="Product Name" required>
                               <p class="text-red"><?php echo form_error('label')?></p>
                             </div>
                             <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Role Level</label>
-                              <input type="number" class="form-control" name="level" placeholder="Role Level" required>
-                              <p class="text-red"><?php echo form_error('level')?></p>
+                                <label><span style="color: red; margin-right: 3px">*</span>Product Category</label>
+                                <select class="form-control" name="id_category">
+                                <?php foreach ($category as $cat) :?>
+                                    <option name="option" value="<?php echo $cat->id ?>"><?php echo $cat->label ?></option>
+                                <?php endforeach ?>
+                                </select>
+                             </div>
+                            <div class="form-group">
+                              <label for="text"><span style="color: red; margin-right: 3px"></span>Code Category</label>
+                              <input type="text" class="form-control" name="code_category" placeholder="Code Category">
+                              <p class="text-red"><?php echo form_error('code_category')?></p>
                             </div>
+                            <div class="form-group">
+                                <label><span style="color: red; margin-right: 3px">*</span>Product Technology</label>
+                                <select class="form-control" name="id_technology">
+                                <?php foreach ($technology as $tech) :?>
+                                    <option name="option" value="<?php echo $tech->id ?>"><?php echo $tech->label ?></option>
+                                <?php endforeach ?>
+                                </select>
+                             </div>
+                             <div class="form-group">
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Color Series</label>
+                              <input type="text" class="form-control" name="color" placeholder="Color Series" required>
+                              <p class="text-red"><?php echo form_error('color')?></p>
+                            </div>
+                            <div class="form-group">
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Product Series</label>
+                              <input type="text" class="form-control" name="series" placeholder="Product Series" required>
+                              <p class="text-red"><?php echo form_error('series')?></p>
+                            </div>
+                            
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>

@@ -41,6 +41,20 @@ class Models extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    public function GetAllProduct(){
+        $this->db->select('a.id,a.code,a.label,a.color,a.series,a.code_category,b.label as category,c.label as technology,a.created_at,a.updated_at');
+        $this->db->from('product a');
+        $this->db->join('category b','a.id_category = b.id','left');
+        $this->db->join('technology c','a.id_category = c.id','left');
+        $data = $this->db->get()->result();
+        return $data;
+    }
+
+
+
+
+
+    //Model Lama
     public function itemOneMonth() {
         // Define start and end dates for one month time limit
         $startDate = date('Y-m-01'); // First day of current month
@@ -494,10 +508,6 @@ class Models extends CI_Model {
     }
     function getWhere2($table,$where){
         return $this->db->get_where($table,$where)->result();
-    }
-    public function getAllProduct($id){
-        $query = "SELECT a.username,a.nama,a.email,b.nama_barang,b.harga,b.quantity,b.gambar,b.deskripsi,b.id FROM user a JOIN barang b ON a.username=b.id_penjual EXCEPT SELECT a.username,a.nama,a.email,b.nama_barang,b.harga,b.quantity,b.gambar,b.deskripsi,b.id FROM user a JOIN barang b ON a.username=b.id_penjual WHERE a.username='$id'";
-        return $this->db->query($query)->result();
     }
     public function getMyProduct($id){
         $query = "SELECT a.username,a.nama,a.email,b.nama_barang,b.harga,b.quantity,b.gambar,b.deskripsi,b.id FROM user a JOIN barang b ON a.username=b.id_penjual WHERE a.username='$id'";

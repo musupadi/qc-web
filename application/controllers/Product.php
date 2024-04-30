@@ -13,8 +13,12 @@ class Product extends CI_Controller {
     }
     private function rulesProduct(){
         return [
-            ['field' => 'label','label' => 'Label','rules' => 'required'],
-            ['field' => 'level','label' => 'Level','rules' => 'required']
+            ['field' => 'code','label' => 'code','rules' => 'required'],
+            ['field' => 'label','label' => 'label','rules' => 'required'],
+            ['field' => 'color','label' => 'color','rules' => 'required'],
+            ['field' => 'series','label' => 'series','rules' => 'required'],
+            ['field' => 'id_category','label' => 'id_category','rules' => 'required'],
+            ['field' => 'id_technology','label' => 'id_technology','rules' => 'required']
         ];
     }
     private function rulesCategory(){
@@ -27,7 +31,9 @@ class Product extends CI_Controller {
     public function index()
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
-        $data['product'] = $this->Models->getAll('product');
+        $data['product'] = $this->Models->GetAllProduct();
+        $data['technology'] = $this->Models->getAll('technology');
+        $data['category'] = $this->Models->getAll('category');
         $data['title'] = 'Product';
         $this->load->view('dashboard/header',$data);
         $this->load->view('Product/side',$data);
@@ -35,24 +41,32 @@ class Product extends CI_Controller {
         $this->load->view('dashboard/footer');
     }
 
-    public function Tambah(){
-        $this->form_validation->set_rules($this->rulesRoles());
-        $ID = $this->Models->getID('m_user','username',$this->session->userdata('nama'));
+    public function Add(){
+        $this->form_validation->set_rules($this->rulesProduct());
+        $ID = $this->Models->getID('user','username',$this->session->userdata('nama'));
+        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+        $data['product'] = $this->Models->GetAllProduct();
+        $data['technology'] = $this->Models->getAll('technology');
+        $data['category'] = $this->Models->getAll('category');
+        $data['title'] = 'Product';
         if($this->form_validation->run() === FALSE){
-            $data['user'] =$this->Models->getID('m_user','username',$this->session->userdata('nama'));
             $this->load->view('dashboard/header',$data);
-            $this->load->view('User/Role/side',$data);
-            $this->load->view('User/Role/main',$data);
+            $this->load->view('Product/side',$data);
+            $this->load->view('Product/main',$data);
             $this->load->view('dashboard/footer');
-        }else{
-            $id = $this->Models->getID('m_user', 'username', $this->session->userdata('nama'));            
-            $data['label'] = $this->input->post('label');
-            $data['level'] = $this->input->post('level');
-            $data['created_by'] = $id[0]->id;;
-            $data['updated_by'] = $id[0]->id;;
-            $this->Models->insert('m_role',$data);
+        }else{          
+            $data2['code'] = $this->input->post('code');
+            $data2['label'] = $this->input->post('label');
+            $data2['color'] = $this->input->post('color');
+            $data2['series'] = $this->input->post('series');
+            $data2['code_category'] = $this->input->post('code_category');
+            $data2['id_category'] = $this->input->post('id_category');
+            $data2['id_technology'] = $this->input->post('id_technology');
+            $data2['created_by'] = $ID[0]->id;;
+            $data2['updated_by'] = $ID[0]->id;;
+            $this->Models->insert('product',$data2);
             $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
-            redirect(base_url('User/Role'));
+            redirect(base_url('Product'));
         }
     }
     public function Edit($id){
