@@ -48,7 +48,7 @@
                   <td><?php echo $data->color?></td>
                   <td><?php echo $data->series?></td>
                   <td style="text-align: center;">
-                  <a data-toggle="modal" data-target="#modal-success" class="btn btn-success btn-sm" onclick="accept_data('<?=$data->id ?>', '<?=$data->name ?>', '<?=$data->qty ?>' ,'<?=$data->ItemName ?>')"><i class="fa fa-fw fa-plus"></i>Input Product</a>
+                  <a data-toggle="modal" data-target="#modal-success" class="btn btn-success btn-sm" onclick="input('<?=$data->id ?>', '<?=$data->code ?>', '<?=$data->label ?>')"><i class="fa fa-fw fa-plus"></i>Input Product</a>
                   </td>
                 </tr>
                 <?php  } ?>
@@ -83,24 +83,29 @@
                     <div class="modal-body">
                         <div class="box-body">
                             <div class="form-group">
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Color Series</label>
+                              <input type="hidden" class="form-control" name="id" id="id" placeholder="Color Series" required>
+                              <p class="text-red"><?php echo form_error('id')?></p>
+                            </div>
+                            <div class="form-group">
                               <label for="text"><span style="color: red; margin-right: 3px">*</span>Item Code</label>
-                              <input type="text" class="form-control" name="code" placeholder="Item Code" required>
+                              <input type="text" class="form-control" name="code" id="code" placeholder="Item Code" required disabled>
                               <p class="text-red"><?php echo form_error('code')?></p>
                             </div>
                             <div class="form-group">
                               <label for="text"><span style="color: red; margin-right: 3px">*</span>Product Name</label>
-                              <input type="text" class="form-control" name="label" placeholder="Product Name" required>
+                              <input type="text" class="form-control" name="label" id="label" placeholder="Product Name" required disabled>
                               <p class="text-red"><?php echo form_error('label')?></p>
                             </div>
-                             <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Color Series</label>
-                              <input type="text" class="form-control" name="color" placeholder="Color Series" required>
-                              <p class="text-red"><?php echo form_error('color')?></p>
+                            <div class="form-group">
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Load Number</label>
+                              <input type="text" class="form-control" name="load_number" id="load_number" placeholder="Load Number" required>
+                              <p class="text-red"><?php echo form_error('load_number')?></p>
                             </div>
                             <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Product Series</label>
-                              <input type="text" class="form-control" name="series" placeholder="Product Series" required>
-                              <p class="text-red"><?php echo form_error('series')?></p>
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>QTY (KG)</label>
+                              <input type="number" class="form-control" name="qty" id="qty" placeholder="Load Number" required>
+                              <p class="text-red"><?php echo form_error('load_number')?></p>
                             </div>
                             
                     </div>
@@ -118,10 +123,11 @@
     <!-- /.content -->
 
     <script>
-  function input(id)
+  function input(id,code,label)
   {
-    console.log(id);
     document.getElementById('id').value = id;
+    document.getElementById('code').value = code;
+    document.getElementById('label').value = label;
   }
   function adjust_data(id, name, qty,ItemName)
   {
