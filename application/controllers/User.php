@@ -42,9 +42,8 @@ class User extends CI_Controller {
         $this->form_validation->set_rules($this->rulesUser());
         $username = $this->session->userdata('nama');
         if($this->form_validation->run() === FALSE){
-            $data['user'] = $this->Models->getID('m_user','username',$this->session->userdata('nama'));
-            $data['role'] = $this->Models->getAll('m_role');
-            $data['warehouse'] =$this->Models->AllWarehouse();
+            $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+            $data['role'] = $this->Models->getAll('role');
             $data['title'] = 'New User';
             $this->load->view('dashboard/header',$data);
             $this->load->view('User/List/side',$data);
@@ -61,14 +60,14 @@ class User extends CI_Controller {
             // $config['max_height']           = 768;
 
             $this->load->library('upload', $config);
-            $id = $this->Models->getID('m_user', 'username', $this->session->userdata('nama'));
+            $id = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
             if ($this->upload->do_upload('gambar')) {
                 $data['name'] = $this->input->post('name');
                 $data['username'] = $this->input->post('username');
                 $data['password'] = MD5($this->input->post('password'));
                 $data['email'] = $this->input->post('email');
-                $data['department'] = $this->input->post('department');
-                $data['phone_number'] = $this->input->post('phone_number');
+                $data['jenis_kelamin'] = $this->input->post('jenis_kelamin');
+                $data['kontak'] = $this->input->post('kontak');
                 $data['id_role '] = $this->input->post('id_role');
                 $data['photo'] = $this->upload->data("file_name");
                 $data['created_by'] = $id[0]->id;
@@ -78,32 +77,22 @@ class User extends CI_Controller {
                 $data['username'] = $this->input->post('username');
                 $data['password'] = MD5($this->input->post('password'));
                 $data['email'] = $this->input->post('email');
-                $data['department'] = $this->input->post('department');
-                $data['phone_number'] = $this->input->post('phone_number');
+                $data['jenis_kelamin'] = $this->input->post('jenis_kelamin');
+                $data['kontak'] = $this->input->post('kontak');
                 $data['id_role '] = $this->input->post('id_role');
-                $data['photo'] = "logo.jpg";
+                $data['photo'] = "default.png";
                 $data['created_by'] = $id[0]->id;
                 $data['updated_by'] = $id[0]->id;
             }
 
             $this->db->where('username', $this->input->post('username'));
-            $query = $this->db->get('m_user');
+            $query = $this->db->get('user');
 
             if ($query->num_rows() > 0) {
                 $this->session->set_flashdata('pesan','<script>alert("Username already exists..")</script>');
             } else {
-                $this->Models->insert('m_user',$data);
+                $this->Models->insert('user',$data);
                 $this->session->set_flashdata('pesan','<script>alert("New user added successfully")</script>');
-            }
-
-            $id_user = $this->db->insert_id();
-
-            if ( !empty($this->input->post('id_warehouse')) ){
-                $data2['id_user'] = $id_user;
-                $data2['id_warehouse'] = $this->input->post('id_warehouse');
-                $data2['created_by'] = $id[0]->id;
-                $data2['updated_by'] = $id[0]->id;
-                $this->Models->insert('role_warehouse',$data2);
             }
             redirect(base_url('User'));
         }

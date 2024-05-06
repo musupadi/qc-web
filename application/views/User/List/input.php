@@ -39,14 +39,16 @@
                       <p class="text-red"><?php echo form_error('email')?></p>
                     </div>
                     <div class="form-group">
-                      <label for="text"><span style="color: red; margin-right: 3px">*</span>Department</label>
-                      <input type="text" class="form-control" name="department" placeholder="Department" required>
-                      <p class="text-red"><?php echo form_error('department')?></p>
+                        <label><span style="color: red; margin-right: 3px">*</span>Pilih Jenis Kelamin</label>
+                        <select class="form-control" name="jenis_kelamin" onchange="pilihlevel(this)">
+                          <option value="0">Laki-laki</option>
+                          <option value="1">Perempuan</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                      <label for="text"><span style="color: red; margin-right: 3px">*</span>Phone Number</label>
-                      <input type="number" class="form-control" name="phone_number" placeholder="Phone Number" required>
-                      <p class="text-red"><?php echo form_error('email')?></p>
+                      <label for="text"><span style="color: red; margin-right: 3px">*</span>Contact</label>
+                      <input type="number" class="form-control" name="kontak" placeholder="Kontak" required>
+                      <p class="text-red"><?php echo form_error('kontak')?></p>
                     </div>
                     <div class="form-group">
                         <label><span style="color: red; margin-right: 3px">*</span>Select Role</label>
@@ -54,14 +56,6 @@
                           <?php foreach ($role as $data){ ?>
                               <option value="<?php echo $data->id?>"><?php echo $data->label ?></option>
                           <?php }?>
-                        </select>
-                    </div>
-                    <div class="form-group" id="listwr" style="display: none">
-                        <label><span style="color: red; margin-right: 3px">*</span>Pilih Warehouse</label>
-                          <select class="form-control" name="id_warehouse" id="id_warehouse" disabled>
-                            <?php foreach ($warehouse as $dataWarehouse) :?>
-                                <option name="option" value="<?php echo $dataWarehouse->id?>"><?php echo $dataWarehouse->name ?></option>
-                            <?php endforeach ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -84,25 +78,3 @@
           </div>
           <!-- /.row -->
         </section>
-<script>
-
-let divSelect = document.getElementById('listwr');
-let select = document.getElementById('id_warehouse');
-let id_user = document.getElementById('id_user');
-
-function pilihlevel(obj)
-{
- var idlevel = obj.value;
-
- if (idlevel == 3){
-   divSelect.style.display = 'block';
-   select.removeAttribute('disabled');
-   id_user.removeAttribute('disabled');
- } else {
-   divSelect.style.display = 'none';
-   select.setAttribute('disabled', '')
-   id_user.setAttribute('disabled', '')
- }
-}
-
-</script>

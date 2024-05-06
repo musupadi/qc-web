@@ -9,6 +9,10 @@ class Models extends CI_Model {
 
         return $timestamp;
     }
+    public function WhereData($table,$key,$id){
+        return $this->db->get_where($table,array($key => $id))->result_array();
+    }
+
     public function getAll($table){
         return $this->db->get($table)->result();
     }
@@ -41,6 +45,26 @@ class Models extends CI_Model {
         return $this->db->query($query)->result();
     }
 
+    public function Forecast(){
+        $this->db->select('a.id,a.label,a.forecast,a.date,a.stock,a.qty,
+        b.label as name,
+        c.label as product,c.code,c.color,c.series,c.code_category');
+        $this->db->from('forecast a');
+        $this->db->join('customer b','a.id_customer = b.id','left');
+        $this->db->join('product c','a.id_product = c.id','left');
+        $data = $this->db->get()->result();
+        return $data;
+    }
+
+    public function SalesData($id_forecast){
+        $this->db->select('b.name,c.label');
+        $this->db->from('sales a');
+        $this->db->join('user b','a.id_user = b.id','left');
+        $this->db->join('forecast c','a.id_forecast = c.id','left');
+        $this->db->where('a.id_forecast', $id_forecast);
+        $data = $this->db->get()->result();
+        return $data;
+    }
     public function GetAllProduct(){
         $this->db->select('a.id,a.code,a.label,a.color,a.series,a.code_category,b.label as category,c.label as technology,a.created_at,a.updated_at');
         $this->db->from('product a');

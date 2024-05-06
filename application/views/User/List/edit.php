@@ -69,30 +69,6 @@
                         </select>
                     </div>
                     <?php }?>
-                    <div class="form-group" id="listwr" style="display: none">
-                        <label><span style="color: red; margin-right: 3px">*</span>Pilih Warehouse</label>
-                          <select class="form-control" name="id_warehouse" id="id_warehouse" disabled>
-                            <?php foreach ($warehouse as $dataWarehouse) :?>
-                                <?php foreach ($rolewarehouse as $roles) :?>
-                                  <?php
-                                  // Misalnya, Anda memiliki variabel $selectedId yang menyimpan id yang harus dipilih
-                                  $selectedId = $roles->id_warehouse; // Ganti nilai ini sesuai kebutuhan Anda
-                                  
-                                  // Periksa apakah id saat ini sama dengan $selectedId
-                                  $isSelected = ($dataWarehouse->id == $selectedId) ? 'selected' : '';
-                                  ?>
-                                <?php endforeach ?>
-                                <option name="option" value="<?php echo $dataWarehouse->id ?>" <?php echo $isSelected ?>><?php echo $dataWarehouse->name ?></option>
-
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="file-upload" class="custom-file-upload">
-                          <i class="fa fa-cloud-upload"></i> Update Profile Photo</label>
-                        <input type="file" class="form-control" name="photo" size="20" id="file-upload">
-                    </div>
-                  </div>
                   <!-- /.box-body -->
 
                   <div class="box-footer">
