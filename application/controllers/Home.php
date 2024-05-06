@@ -40,6 +40,26 @@ class Home extends CI_Controller {
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['title'] = 'Dashboard';
+
+        $count = 0;
+        $i = 1;
+        for($i=1;$i<=12;$i++)
+        {
+            $forecast = 0;
+            $ForecastCount = $this->Models->CountDatetoDate("forecast","2024-".$i."-01","2024-".$i."-31","date");
+            for($d=0;$d<$ForecastCount;$d++){
+                $forecast = $forecast + (int)$this->Models->DataDatetoDate("forecast","2024-".$i."-01","2024-".$i."-31","date") == null ? 0 : $this->Models->DataDatetoDate("forecast","2024-".$i."-01","2024-".$i."-31","date")[0]->forecast;    
+            }
+            $data['forecast'][$i-1] = (int)$forecast;
+
+            $production = 0;
+            $ProductionCount = $this->Models->CountDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date");
+            for($d=0;$d<$ProductionCount;$d++){
+                $production = $production + (int)$this->Models->DataDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date") == null ? 0 : $this->Models->DataDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date")[0]->qty;    
+            }
+            $data['production'][$i-1] = (int)$production;
+        }
+        
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
         $this->load->view('dashboard/main',$data);

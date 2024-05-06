@@ -3,7 +3,7 @@
         'name' => 'codeigniter/framework',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ebc598fe8aec3c9cfff848b459d6881d1f5d0afd',
+        'reference' => '84753c500c3f17bb73d1530da6bd54a1515cb3ba',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'codeigniter/framework' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ebc598fe8aec3c9cfff848b459d6881d1f5d0afd',
+            'reference' => '84753c500c3f17bb73d1530da6bd54a1515cb3ba',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -234,15 +234,6 @@
             'install_path' => __DIR__ . '/../sebastian/version',
             'aliases' => array(),
             'dev_requirement' => true,
-        ),
-        'select2/select2' => array(
-            'pretty_version' => '4.0.13',
-            'version' => '4.0.13.0',
-            'reference' => '45f2b83ceed5231afa7b3d5b12b58ad335edd82e',
-            'type' => 'component',
-            'install_path' => __DIR__ . '/../select2/select2',
-            'aliases' => array(),
-            'dev_requirement' => false,
         ),
         'setasign/fpdf' => array(
             'pretty_version' => '1.8.6',

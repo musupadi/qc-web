@@ -279,23 +279,7 @@
 <script src="<?php echo base_url();?>asset/AdminLTE-2.4.18/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>asset/AdminLTE-2.4.18/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
-<script>
-$(document).ready(function() {
-    $('.js-example-basic-multiple').select2();
-});
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-  
-</script>
+
 
 
 </body>

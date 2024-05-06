@@ -44,7 +44,20 @@ class Models extends CI_Model {
         $query = "SELECT COUNT (*) AS c FROM $table";
         return $this->db->query($query)->result();
     }
-
+    public function DataDatetoDate($table,$startDate,$endDate,$datename){
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->where($datename.' >=', $startDate);
+        $this->db->where($datename.' <=', $endDate);
+        $data = $this->db->get()->result();
+        return $data;
+    }
+    public function CountDatetoDate($table,$startDate,$endDate,$datename){
+        $this->db->where($datename.' >=', $startDate);
+        $this->db->where($datename.' <=', $endDate);
+        $this->db->from($table);
+        return $this->db->count_all_results();
+    }
     public function Forecast(){
         $this->db->select('a.id,a.label,a.forecast,a.date,a.stock,a.qty,
         b.label as name,

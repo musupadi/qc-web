@@ -76,10 +76,58 @@
         </div>
         <!-- ./col -->
       </div>
+      <div class="row">
+        <div class="col-lg-12 col-xs-6">
+            <!-- small box -->
+              <div id="sales_chart" style="height: 700px">
+        </div>
+      </div>
+      <script>
+        // Inisialisasi Google Charts
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
 
+        // Fungsi untuk menggambar grafik
+        function drawChart() {
+            // Data produksi dan ramalan dari controller
+            var production = '<?php echo $production[0]; ?>';
+            var forecast = '<?php echo $forecast[0]; ?>';
+            console.log(production);
+            // Buat data table
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Month');
+            data.addColumn('number', 'Production');
+            data.addColumn('number', 'Forecast');
+            data.addRows([
+                ['Jan',<?php echo $production[0]; ?>, <?php echo $forecast[0]; ?>],
+                ['Feb',<?php echo $production[1]; ?>, <?php echo $forecast[1]; ?>],
+                ['Mar',<?php echo $production[2]; ?>, <?php echo $forecast[2]; ?>],
+                ['Apr',<?php echo $production[3]; ?>, <?php echo $forecast[3]; ?>],
+                ['May',<?php echo $production[4]; ?>, <?php echo $forecast[4]; ?>],
+                ['Jun',<?php echo $production[5]; ?>, <?php echo $forecast[5]; ?>],
+                ['Jul',<?php echo $production[6]; ?>, <?php echo $forecast[6]; ?>],
+                ['Aug',<?php echo $production[7]; ?>, <?php echo $forecast[7]; ?>],
+                ['Sep',<?php echo $production[8]; ?>, <?php echo $forecast[8]; ?>],
+                ['Oct',<?php echo $production[9]; ?>, <?php echo $forecast[9]; ?>],
+                ['Nov',<?php echo $production[10]; ?>, <?php echo $forecast[10]; ?>],
+                ['Des',<?php echo $production[11]; ?>, <?php echo $forecast[11]; ?>]
+            ]);
 
+            // Set opsi chart
+            var options = {
+                title: 'All Production and Forecast 2024',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+
+            // Gambar grafik menggunakan LineChart
+            var chart = new google.visualization.LineChart(document.getElementById('sales_chart'));
+            chart.draw(data, options);
+        }
+    </script>
  
-        
+
+
      
      
 
@@ -92,3 +140,6 @@
 
     </section>
     <!-- /.content -->
+    
+
+        
