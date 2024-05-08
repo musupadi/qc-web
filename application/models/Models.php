@@ -35,7 +35,10 @@ class Models extends CI_Model {
     function getWhere($table,$where){
         return $this->db->get_where($table,$where)->result_array();
     }
-
+    function InsertLastID($table,$data){
+        $this->db->insert($table,$data);
+        return $this->db->insert_id();
+    }
     public function Count($table,$key,$id){
         $query = "SELECT Count(*) AS count FROM $table WHERE $key = '$id'";
         return $this->db->query($query)->result();

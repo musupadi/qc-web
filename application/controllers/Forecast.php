@@ -16,9 +16,14 @@ class Forecast extends CI_Controller {
             ['field' => 'label','label' => 'label','rules' => 'required']
         ];
     }
-    private function rulesCategory(){
+    private function rulesForecast(){
         return [
-            ['field' => 'label','label' => 'Label','rules' => 'required'],
+            ['field' => 'id_product','label' => 'id_product','rules' => 'required'],
+            ['field' => 'label','label' => 'label','rules' => 'required'],
+            ['field' => 'forecast','label' => 'forecast','rules' => 'required'],
+            ['field' => 'date','label' => 'date','rules' => 'required'],
+            ['field' => 'qty','label' => 'qty','rules' => 'required'],
+            ['field' => 'stock','label' => 'stock','rules' => 'required'],
         ];
     }
 
@@ -38,36 +43,51 @@ class Forecast extends CI_Controller {
         $this->load->view('Forecast/main',$data);
         $this->load->view('dashboard/footer');
     }
-
     public function Add(){
-        $this->form_validation->set_rules($this->rulesProduct());
-        $ID = $this->Models->getID('user','username',$this->session->userdata('nama'));
-        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
-        $data['product'] = $this->Models->GetAllProduct();
-        $data['technology'] = $this->Models->getAll('technology');
-        $data['category'] = $this->Models->getAll('category');
-        $data['title'] = 'QC';
+        $this->form_validation->set_rules($this->rulesForecast());
+        $username = $this->session->userdata('nama');
         if($this->form_validation->run() === FALSE){
+            $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+            $data['product'] = $this->Models->getAll('product');
+            $data['customer'] = $this->Models->getAll('customer');
+            $data['pic'] = $this->Models->getID('user','id_role','4');
+            $data['title'] = 'Forecast';
             $this->load->view('dashboard/header',$data);
-            $this->load->view('QC/side',$data);
-            $this->load->view('QC/main',$data);
+            $this->load->view('Forecast/side',$data);
+            $this->load->view('Forecast/input',$data);
             $this->load->view('dashboard/footer');
-        }else{          
-            $Product = $this->Models->getID('product','id',$this->input->post('id'));
-            $data2['id_product'] = $this->input->post('id');
-            $data2['load_number'] = $this->input->post('load_number');
-            $data2['qty'] = $this->input->post('qty');
-            $data2['production_date'] = $this->input->post('production_date');
-            $data2['created_by'] = $ID[0]->id;
-            $data2['updated_by'] = $ID[0]->id;
-            $this->Models->insert('qc',$data2);
+        }else{
+            $id = $this->Models->getID('user','username',$this->session->userdata('nama'));
+            $data['label'] = $this->input->post('label');
+            $data['id_product'] = $this->input->post('id_product');
+            $data['label'] = $this->input->post('label');
+            $data['forecast'] = $this->input->post('forecast');
+            $data['date'] = $this->input->post('date');
+            $data['stock'] = $this->input->post('stock');
+            $data['qty '] = $this->input->post('qty');
+            $data['id_customer'] = $this->input->post("id_customer");
+            $data['created_by'] = $id[0]->id;
+            $data['updated_by'] = $id[0]->id;
+            $LastID = $this->Models->InsertLastID('forecast',$data);
+            
+            $sales = $this->input->post('id_user');
+            foreach($sales as $i => $isiSales){
+                $datas['id_user'] = $isiSales;
+                $datas['id_forecast'] = $LastID;
+                $datas['created_by'] = $id[0]->id;
+                $datas['updated_by'] = $id[0]->id;
+                $this->Models->insert('sales',$datas);
+            }
+         
 
-            $logs['action'] = "Menginput Product ".$Product[0]->label." > ".$this->input->post('qty');
-            $logs['created_by'] = $ID[0]->id;;
-            $logs['updated_by'] = $ID[0]->id;;
+
+            $logs['action'] = "Menginput Forecast ".$data['label']." Dengan Nilai ".$data['forecast'];
+            $logs['created_by'] = $id[0]->id;;
+            $logs['updated_by'] = $id[0]->id;;
             $this->Models->insert('logs',$logs);
-            $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
-            redirect(base_url('Qc'));
+
+            $this->session->set_flashdata('pesan','<script>alert("New Forecast Succesfully Added")</script>');
+            redirect(base_url('Forecast'));
         }
     }
     public function Edit($id){
