@@ -37,9 +37,9 @@ class Forecast extends CI_Controller {
             $data['sales'][$i] = $this->Models->SalesData($data['forecast'][$i]->id); 
 		}
 
-        $data['title'] = 'Logs';
+        $data['title'] = 'Forecast';
         $this->load->view('dashboard/header',$data);
-        $this->load->view('Forecast/side',$data);
+        $this->load->view('dashboard/side',$data);
         $this->load->view('Forecast/main',$data);
         $this->load->view('dashboard/footer');
     }
@@ -54,7 +54,7 @@ class Forecast extends CI_Controller {
             $data['title'] = 'Forecast';
             $this->load->view('dashboard/header',$data);
             $this->load->view('Forecast/side',$data);
-            $this->load->view('Forecast/input',$data);
+            $this->load->view('dashboard/input',$data);
             $this->load->view('dashboard/footer');
         }else{
             $id = $this->Models->getID('user','username',$this->session->userdata('nama'));
@@ -90,44 +90,13 @@ class Forecast extends CI_Controller {
             redirect(base_url('Forecast'));
         }
     }
-    public function Edit($id){
-        $this->form_validation->set_rules($this->rulesRoles());
-        if($this->form_validation->run() === false){
-            $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));   
-            $where = array(
-                'id' => $id
-            );
-            $data['role'] = $this->Models->getWhere2("role",$where);
-            $data['title'] = 'Edit Role';
-            $this->load->view('dashboard/header',$data);
-            $this->load->view('User/Role/side',$data);
-            $this->load->view('User/Role/edit',$data);
-            $this->load->view('dashboard/footer');  
-            $this->session->set_flashdata('Pesan', '<script>alert("Data gagal diubah")</script>');
-        }else{
-            $ID = $this->Models->getID('m_user', 'username', $this->session->userdata('nama'));     
-            $data['label'] = $this->input->post('label');
-            $data['level'] = $this->input->post('level');
-            $data['updated_by'] = $ID[0]->id;
-            $data['updated_at'] = $this->Models->GetTimestamp();
-            $this->Models->edit('m_role','id',$id,$data);
-            $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil diubah")</script>');
-            redirect(base_url('User/Role'));
-        }
-    }
-    public function Hapus($id){
-        $this->Models->delete('m_role','id',$id);
-        $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil dihapus")</script>');
-        redirect(base_url('User/Role'));
-    }
-
     public function Customer()
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['customer'] = $this->Models->getAll('customer');
-        $data['title'] = 'Forecast Customer';
+        $data['title'] = 'Customer';
         $this->load->view('dashboard/header',$data);
-        $this->load->view('Forecast/Customer/side',$data);
+        $this->load->view('dashboard/side',$data);
         $this->load->view('Forecast/Customer/main',$data);
         $this->load->view('dashboard/footer');
     }
@@ -138,10 +107,10 @@ class Forecast extends CI_Controller {
         $ID = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['customer'] = $this->Models->getAll('customer');
-        $data['title'] = 'Forecast Customer';
+        $data['title'] = 'Customer';
         if($this->form_validation->run() === FALSE){
             $this->load->view('dashboard/header',$data);
-            $this->load->view('Forecast/Customer/side',$data);
+            $this->load->view('dashboard/side',$data);
             $this->load->view('Forecast/Customer/main',$data);
             $this->load->view('dashboard/footer');
         }else{          

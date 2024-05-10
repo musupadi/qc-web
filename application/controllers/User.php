@@ -31,9 +31,10 @@ class User extends CI_Controller {
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['Data'] = $this->Models->AllUser();
+        $data['side'] = 'User';
         $data['title'] = 'User';
         $this->load->view('dashboard/header',$data);
-        $this->load->view('User/List/side',$data);
+        $this->load->view('dashboard/side',$data);
         $this->load->view('User/List/main',$data);
         $this->load->view('dashboard/footer');
     }
@@ -44,9 +45,10 @@ class User extends CI_Controller {
         if($this->form_validation->run() === FALSE){
             $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
             $data['role'] = $this->Models->getAll('role');
+            $data['side'] = 'User';
             $data['title'] = 'New User';
             $this->load->view('dashboard/header',$data);
-            $this->load->view('User/List/side',$data);
+            $this->load->view('dashboard/side',$data);
             $this->load->view('User/List/input',$data);
             $this->load->view('dashboard/footer');
         }else{
@@ -102,15 +104,14 @@ class User extends CI_Controller {
         $this->form_validation->set_rules($this->rulesUser());
         $username = $this->session->userdata('nama');
         if($this->form_validation->run() === FALSE){
-            $data['user'] = $this->Models->getID('m_user','username',$this->session->userdata('nama'));
-            $data['role'] =$this->Models->getAll('m_role');
-            $data['warehouse'] =$this->Models->AllWarehouse();
-            $data['rolewarehouse'] = $this->Models->getID('role_warehouse','id_user',$id);
-            $data['users'] =$this->Models->getID('m_user','id',$id);
-            $data['title'] = 'Edit';
+            $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+            $data['users'] = $this->Models->getID('user','id',$id);
+            $data['Data'] = $this->Models->AllUser();
+            $data['title'] = 'User';
+            $data['side'] = 'User';
             $this->load->view('dashboard/header',$data);
-            $this->load->view('User/List/side',$data);
-            $this->load->view('User/List/edit',$data);
+            $this->load->view('dashboard/side',$data);
+            $this->load->view('User/List/main',$data);
             $this->load->view('dashboard/footer');
         }else{
             $config['upload_path']          = './img/profile/';
@@ -146,29 +147,6 @@ class User extends CI_Controller {
             }
             
             $this->Models->edit('m_user','id',$id,$data);
-
-                if ( !empty($this->input->post('id_user')) ){
-
-                    $this->db->where('id_user', $id);
-                    $query = $this->db->get('role_warehouse');
-
-                    if ($query->num_rows() > 0) {
-                        $data2['id_user'] = $this->input->post('id_user');
-                        $data2['id_warehouse'] = $this->input->post('id_warehouse');
-                        $data2['updated_by'] = $ID[0]->id;
-                        $data2['updated_at'] = $this->Models->GetTimestamp();
-                        $this->Models->edit('role_warehouse','id_user' , $this->input->post('id_user'), $data2);
-                    } else {
-                        $data2['id_user'] = $this->input->post('id_user');
-                        $data2['id_warehouse'] = $this->input->post('id_warehouse');
-                        $data2['updated_by'] = $ID[0]->id;
-                        $data2['updated_at'] = $this->Models->GetTimestamp();
-                        $this->Models->insert('role_warehouse', $data2);
-                    }
-
-                } else if (empty($this->input->post('id_user'))) {
-                    $this->Models->delete('role_warehouse','id_user', $id);
-                }
             $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
             redirect(base_url('User'));
         }
@@ -186,8 +164,9 @@ class User extends CI_Controller {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['role'] = $this->Models->getAll('role');
         $data['title'] = 'Role';
+        $data['side'] = 'Role';
         $this->load->view('dashboard/header',$data);
-        $this->load->view('User/Role/side',$data);
+        $this->load->view('dashboard/side',$data);
         $this->load->view('User/Role/main',$data);
         $this->load->view('dashboard/footer');
     }
@@ -196,12 +175,13 @@ class User extends CI_Controller {
         $ID = $this->Models->getID('user','username',$this->session->userdata('nama'));
         if($this->form_validation->run() === FALSE){
             $data['user'] =$this->Models->getID('user','username',$this->session->userdata('nama'));
+            $data['side'] = 'Role';
             $this->load->view('dashboard/header',$data);
-            $this->load->view('User/Role/side',$data);
+            $this->load->view('Dashboard/side',$data);
             $this->load->view('User/Role/main',$data);
             $this->load->view('dashboard/footer');
         }else{
-            $id = $this->Models->getID('m_user', 'username', $this->session->userdata('nama'));            
+            $id = $this->Models->getID('user', 'username', $this->session->userdata('nama'));            
             $data['label'] = $this->input->post('label');
             $data['level'] = $this->input->post('level');
             $data['created_by'] = $id[0]->id;;
@@ -214,14 +194,15 @@ class User extends CI_Controller {
     public function EditRole($id){
         $this->form_validation->set_rules($this->rulesRoles());
         if($this->form_validation->run() === false){
-            $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));   
+            $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));  
+            $data['side'] = 'User'; 
             $where = array(
                 'id' => $id
             );
             $data['role'] = $this->Models->getWhere2("role",$where);
             $data['title'] = 'Edit Role';
             $this->load->view('dashboard/header',$data);
-            $this->load->view('User/Role/side',$data);
+            $this->load->view('Dashboard/side',$data);
             $this->load->view('User/Role/edit',$data);
             $this->load->view('dashboard/footer');  
             $this->session->set_flashdata('Pesan', '<script>alert("Data gagal diubah")</script>');

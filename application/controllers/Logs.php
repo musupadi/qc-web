@@ -18,7 +18,7 @@ class Logs extends CI_Controller {
         $data['Logs'] = $this->Models->Logs("","","");
         $data['title'] = 'Logs';
         $this->load->view('dashboard/header',$data);
-        $this->load->view('Logs/side',$data);
+        $this->load->view('dashboard/side',$data);
         $this->load->view('Logs/main',$data);
         $this->load->view('dashboard/footer');
     }

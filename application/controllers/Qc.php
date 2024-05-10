@@ -31,9 +31,9 @@ class Qc extends CI_Controller {
         $data['Logs'] = $this->Models->QC("","","","");
         $data['technology'] = $this->Models->getAll('technology');
         $data['category'] = $this->Models->getAll('category');
-        $data['title'] = 'Logs';
+        $data['title'] = 'QC';
         $this->load->view('dashboard/header',$data);
-        $this->load->view('QC/side',$data);
+        $this->load->view('dashboard/side',$data);
         $this->load->view('QC/main',$data);
         $this->load->view('dashboard/footer');
     }
@@ -48,7 +48,7 @@ class Qc extends CI_Controller {
         $data['title'] = 'QC';
         if($this->form_validation->run() === FALSE){
             $this->load->view('dashboard/header',$data);
-            $this->load->view('QC/side',$data);
+            $this->load->view('dashboard/side',$data);
             $this->load->view('QC/main',$data);
             $this->load->view('dashboard/footer');
         }else{          
@@ -77,9 +77,9 @@ class Qc extends CI_Controller {
                 'id' => $id
             );
             $data['role'] = $this->Models->getWhere2("role",$where);
-            $data['title'] = 'Edit Role';
+            $data['title'] = 'Role';
             $this->load->view('dashboard/header',$data);
-            $this->load->view('User/Role/side',$data);
+            $this->load->view('dashboard/side',$data);
             $this->load->view('User/Role/edit',$data);
             $this->load->view('dashboard/footer');  
             $this->session->set_flashdata('Pesan', '<script>alert("Data gagal diubah")</script>');
@@ -109,7 +109,7 @@ class Qc extends CI_Controller {
         $data['category'] = $this->Models->getAll('category');
         $data['title'] = 'QC';
         $this->load->view('dashboard/header',$data);
-        $this->load->view('QC/side',$data);
+        $this->load->view('dashboard/side',$data);
         $this->load->view('QC/Add/main',$data);
         $this->load->view('dashboard/footer');
     }
