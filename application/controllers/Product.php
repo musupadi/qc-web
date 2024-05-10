@@ -35,7 +35,6 @@ class Product extends CI_Controller {
         $data['technology'] = $this->Models->getAll('technology');
         $data['category'] = $this->Models->getAll('category');
         $data['title'] = 'Product';
-        $data['side'] = 'Product';
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
         $this->load->view('Product/main',$data);
@@ -50,7 +49,6 @@ class Product extends CI_Controller {
         $data['technology'] = $this->Models->getAll('technology');
         $data['category'] = $this->Models->getAll('category');
         $data['title'] = 'Product';
-        $data['side'] = 'Product';
         if($this->form_validation->run() === FALSE){
             $this->load->view('dashboard/header',$data);
             $this->load->view('dashboard/side',$data);
@@ -108,7 +106,6 @@ class Product extends CI_Controller {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['category'] = $this->Models->getAll('category');
         $data['title'] = 'Category';
-        $data['side'] = 'Category';
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
         $this->load->view('Product/Category/main',$data);
@@ -120,7 +117,6 @@ class Product extends CI_Controller {
             $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
             $data['category'] = $this->Models->getAll('category');
             $data['title'] = 'Category';
-            $data['side'] = 'Category';
             $this->load->view('dashboard/header',$data);
             $this->load->view('dashboard/side',$data);
             $this->load->view('Product/Category/main',$data);
@@ -142,7 +138,6 @@ class Product extends CI_Controller {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['technology'] = $this->Models->getAll('technology');
         $data['title'] = 'Technology';
-        $data['side'] = 'Technology';
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
         $this->load->view('Product/Technology/main',$data);
@@ -154,7 +149,6 @@ class Product extends CI_Controller {
             $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
             $data['technology'] = $this->Models->getAll('technology');
             $data['title'] = 'Technology';
-            $data['side'] = 'Technology';
             $this->load->view('dashboard/header',$data);
             $this->load->view('dashboard/side',$data);
             $this->load->view('Product/Category/main',$data);

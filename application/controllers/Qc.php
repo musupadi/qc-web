@@ -1,5 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class Qc extends CI_Controller {
 
@@ -67,6 +70,41 @@ class Qc extends CI_Controller {
             $this->Models->insert('logs',$logs);
             $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
             redirect(base_url('Qc'));
+        }
+    }
+    public function importExcel() {
+        // Mengunggah file
+        $config['upload_path'] = './file/';
+        $config['allowed_types'] = 'xls|xlsx';
+        $this->load->library('upload', $config);
+        
+        if (!$this->upload->do_upload('excel_file')) {
+            // Gagal mengunggah file
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+        } else {
+            // File berhasil diunggah
+            $fileData = $this->upload->data();
+            $filePath = './file/' . $fileData['file_name'];
+
+            // Menggunakan PhpSpreadsheet untuk membaca file Excel
+            // $this->load->library('PhpSpreadsheet');
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
+            $sheetData = $spreadsheet->getActiveSheet()->toArray();
+    
+            // Proses data yang diimpor
+            $db = $this->Models->importExcelQC($sheetData);
+            unlink($filePath);
+            if($db==true){
+                $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
+                redirect(base_url('Qc'));
+            }else{
+                $this->session->set_flashdata('pesan','<script>alert("Data Gagal disimpan karena Kesalahan Format")</script>');
+                redirect(base_url('Qc'));
+            }
+            // Hapus file setelah diimpor
+            
+          
         }
     }
     public function Edit($id){

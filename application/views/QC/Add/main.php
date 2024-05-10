@@ -71,8 +71,8 @@
             <!-- /.box-body -->
             <!-- INPUT -->
             <div class="modal modal-success fade" id="modal-success">
-            <?php echo form_open_multipart('Qc/Add')?>
-                <form role="form" action="<?php echo base_url('Qc/Add')?>" method="post" >
+            <?php echo form_open_multipart('Qc/importExcel')?>
+                <form role="form" action="<?php echo base_url('Qc/importExcel')?>" method="post" >
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -83,34 +83,18 @@
                     <div class="modal-body">
                         <div class="box-body">
                             <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Color Series</label>
-                              <input type="hidden" class="form-control" name="id" id="id" placeholder="Color Series" required>
-                              <p class="text-red"><?php echo form_error('id')?></p>
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Download Template Excel</label>
+                              <br>
+                              <a href="<?php echo base_url('file/qc_template.xlsx') ?>" download="QC Template.xlsx">
+                                <i class="fa fa-cloud-download"></i> Download Excel
+                              </a>
                             </div>
                             <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Item Code</label>
-                              <input type="text" class="form-control" name="code" id="code" placeholder="Item Code" required disabled>
-                              <p class="text-red"><?php echo form_error('code')?></p>
-                            </div>
-                            <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Product Name</label>
-                              <input type="text" class="form-control" name="label" id="label" placeholder="Product Name" required disabled>
-                              <p class="text-red"><?php echo form_error('label')?></p>
-                            </div>
-                            <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Load Number</label>
-                              <input type="text" class="form-control" name="load_number" id="load_number" placeholder="Load Number" required>
-                              <p class="text-red"><?php echo form_error('load_number')?></p>
-                            </div>
-                            <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>QTY (KG)</label>
-                              <input type="number" class="form-control" name="qty" id="qty" placeholder="Load Number" required>
-                              <p class="text-red"><?php echo form_error('load_number')?></p>
-                            </div>     
-                            <div class="box-body">
-                            <div class="form-group">
-                                <label for="datepicker">Production Date </label>
-                                <input type="date" id="production_date" name="production_date" style="color: black;">
+                              <label for="text"><span style="color: red; margin-right: 3px">*</span>Import Excel</label>
+                              <br>
+                              <label for="file-upload" class="custom-file-upload">
+                              <i class="fa fa-cloud-upload"></i> Upload Excel</label>
+                              <input type="file" class="form-control" name="excel_file" size="20" id="file-upload">
                             </div>
                     </div>
                     <div class="modal-footer">

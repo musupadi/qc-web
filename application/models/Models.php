@@ -35,6 +35,9 @@ class Models extends CI_Model {
     function getWhere($table,$where){
         return $this->db->get_where($table,$where)->result_array();
     }
+    function getDetail($table,$where){
+        return $this->db->get_where($table,$where)->row_array();
+    }
     function InsertLastID($table,$data){
         $this->db->insert($table,$data);
         return $this->db->insert_id();
@@ -71,7 +74,43 @@ class Models extends CI_Model {
         $data = $this->db->get()->result();
         return $data;
     }
-
+    public function importExcelQC($data) {
+        // Proses data yang diimpor, seperti validasi dan penyimpanan ke database
+        // Anda perlu menyesuaikan kode ini sesuai dengan struktur data Anda dan aturan bisnis Anda
+        $this->db->trans_begin();
+        $error = 0;
+		foreach ($data as $i => $row) {
+            if($i > 0){
+                $id = $this->getDetail('product',array('code'=>$row[1]));
+                if(empty($id)){
+                    $error=1;
+                    $id_product= 0;
+                }else{
+                    $id_product= $id['id'];
+                }
+            
+                $dataToInsert = array(
+                    'id_product' => $id_product,
+                    'load_number' => $row[2],
+                    'qty' => $row[3],
+                    'production_date' => $row[4],
+                    // Lanjutkan untuk kolom-kolom lainnya
+                );
+                // Simpan data ke database
+                $this->db->insert('qc', $dataToInsert);
+            }
+        }		
+		if ($this->db->trans_status() === FALSE || $error == 1)
+		{
+			$this->db->trans_rollback();
+			return FALSE;
+		}
+		else
+		{
+			$this->db->trans_commit();
+			return TRUE;
+		}
+    }
     public function SalesData($id_forecast){
         $this->db->select('b.name,c.label');
         $this->db->from('sales a');
