@@ -31,7 +31,6 @@ class User extends CI_Controller {
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['Data'] = $this->Models->AllUser();
-        $data['side'] = 'User';
         $data['title'] = 'User';
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
@@ -45,7 +44,7 @@ class User extends CI_Controller {
         if($this->form_validation->run() === FALSE){
             $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
             $data['role'] = $this->Models->getAll('role');
-            $data['side'] = 'User';
+      
             $data['title'] = 'New User';
             $this->load->view('dashboard/header',$data);
             $this->load->view('dashboard/side',$data);
@@ -108,7 +107,6 @@ class User extends CI_Controller {
             $data['users'] = $this->Models->getID('user','id',$id);
             $data['Data'] = $this->Models->AllUser();
             $data['title'] = 'User';
-            $data['side'] = 'User';
             $this->load->view('dashboard/header',$data);
             $this->load->view('dashboard/side',$data);
             $this->load->view('User/List/main',$data);
@@ -164,7 +162,6 @@ class User extends CI_Controller {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['role'] = $this->Models->getAll('role');
         $data['title'] = 'Role';
-        $data['side'] = 'Role';
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
         $this->load->view('User/Role/main',$data);
@@ -175,7 +172,6 @@ class User extends CI_Controller {
         $ID = $this->Models->getID('user','username',$this->session->userdata('nama'));
         if($this->form_validation->run() === FALSE){
             $data['user'] =$this->Models->getID('user','username',$this->session->userdata('nama'));
-            $data['side'] = 'Role';
             $this->load->view('dashboard/header',$data);
             $this->load->view('Dashboard/side',$data);
             $this->load->view('User/Role/main',$data);
@@ -195,12 +191,11 @@ class User extends CI_Controller {
         $this->form_validation->set_rules($this->rulesRoles());
         if($this->form_validation->run() === false){
             $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));  
-            $data['side'] = 'User'; 
             $where = array(
                 'id' => $id
             );
             $data['role'] = $this->Models->getWhere2("role",$where);
-            $data['title'] = 'Edit Role';
+            $data['title'] = 'Role';
             $this->load->view('dashboard/header',$data);
             $this->load->view('Dashboard/side',$data);
             $this->load->view('User/Role/edit',$data);

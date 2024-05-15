@@ -45,7 +45,7 @@
                     <a href="<?php echo base_url('User/Edit/'.$data->id);?>">
                       <i class="fa fa-fw fa-pencil"></i>
                     </a> 
-                    <a href="<?php echo base_url('User/Delete/'.$data->id);?>"onclick="return confirm('yakin?');">
+                    <a href="<?php echo base_url('User/Delete/'.$data->id);?>"onclick="return confirm('yakin Ingin Menghapus Data?');">
                       <i class="fa fa-fw fa-trash"></i>
                     </a>
                     </div>

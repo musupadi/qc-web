@@ -40,7 +40,6 @@ class Home extends CI_Controller {
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['title'] = 'Dashboard';
-        $data['side'] = 'Dashboard';
         $count = 0;
         $i = 1;
         for($i=1;$i<=12;$i++)

@@ -91,9 +91,9 @@ class Qc extends CI_Controller {
             // $this->load->library('PhpSpreadsheet');
             $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($filePath);
             $sheetData = $spreadsheet->getActiveSheet()->toArray();
-    
+            $ID = $this->Models->getID('user','username',$this->session->userdata('nama'));
             // Proses data yang diimpor
-            $db = $this->Models->importExcelQC($sheetData);
+            $db = $this->Models->importExcelQC($sheetData,$ID[0]->id);
             unlink($filePath);
             if($db==true){
                 $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');

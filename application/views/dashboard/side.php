@@ -61,7 +61,6 @@
               <?php else : ?>
                 <li><a href="<?php echo base_url('Product/Technology')?>"><i class="fa fa-home"></i>Technology</a></li>
               <?php endif ?>
-              
             </ul>
           </li>
         <?php endif ?>

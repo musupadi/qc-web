@@ -74,7 +74,7 @@ class Models extends CI_Model {
         $data = $this->db->get()->result();
         return $data;
     }
-    public function importExcelQC($data) {
+    public function importExcelQC($data,$id_user) {
         // Proses data yang diimpor, seperti validasi dan penyimpanan ke database
         // Anda perlu menyesuaikan kode ini sesuai dengan struktur data Anda dan aturan bisnis Anda
         $this->db->trans_begin();
@@ -94,6 +94,8 @@ class Models extends CI_Model {
                     'load_number' => $row[2],
                     'qty' => $row[3],
                     'production_date' => $row[4],
+                    'created_by' => $id_user,
+                    'updated_by' => $id_user
                     // Lanjutkan untuk kolom-kolom lainnya
                 );
                 // Simpan data ke database
