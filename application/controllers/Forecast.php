@@ -53,8 +53,8 @@ class Forecast extends CI_Controller {
             $data['pic'] = $this->Models->getID('user','id_role','4');
             $data['title'] = 'Forecast';
             $this->load->view('dashboard/header',$data);
-            $this->load->view('Forecast/side',$data);
-            $this->load->view('dashboard/input',$data);
+            $this->load->view('dashboard/side',$data);
+            $this->load->view('forecast/input',$data);
             $this->load->view('dashboard/footer');
         }else{
             $id = $this->Models->getID('user','username',$this->session->userdata('nama'));
