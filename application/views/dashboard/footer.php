@@ -1,10 +1,10 @@
-  </div>
+</div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Version</b> 1
     </div>
-    <strong>Copyright &copy; 2024 <a href="<?php base_url() ?>">Ascendant Network</a>.</strong> All rights
+    <strong>Copyright &copy; 2024 <a href="<?php base_url() ?>">Ascendant POS</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -253,8 +253,6 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js" integrity="sha512-RtZU3AyMVArmHLiW0suEZ9McadTdegwbgtiQl5Qqo9kunkVg1ofwueXD8/8wv3Af8jkME3DDe3yLfR8HSJfT2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
@@ -280,8 +278,62 @@
 <!-- DataTables -->
 <script src="<?php echo base_url();?>asset/AdminLTE-2.4.18/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>asset/AdminLTE-2.4.18/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?= base_url('vendor/components/chart.js/dist/Chart.min.js') ?>"></script>
+<script>
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+  function formatRupiah(input) {
+        // Tangkap nilai input harga
+      
 
+        // var formattedValue = input.replace(/[^\d.]/g, '');
+        
+        // // Mengonversi nilai ke dalam tipe data float
+        // var floatValue = parseFloat(formattedValue);
+        
+        // // Mengatur nilai input dengan nilai yang sudah diformat
+        // input.value = floatValue;
+        
+        let harga = input.value;
 
+        harga = harga.replace(/[.,]/g, '');
+        
+        // Ubah format menjadi Rupiah
+        let hargaFormatted = parseInt(harga).toLocaleString('id-ID');
+        
+
+        // Setel kembali nilai input dengan format Rupiah
+        input.value = hargaFormatted;
+    }
+    function displayImageAndName(input) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            var imgElement = document.getElementById('image-preview');
+            imgElement.src = e.target.result;
+            
+            var imageContainer = document.getElementById('image-container');
+            imageContainer.style.display = 'block';
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+        
+        var fileNameElement = document.getElementById('file-name');
+        fileNameElement.innerText = input.files[0].name;
+    }
+</script>
 
 
 </body>

@@ -58,6 +58,17 @@ class Models extends CI_Model {
         $data = $this->db->get()->result();
         return $data;
     }
+    public function SumDatetoDate($table,$startDate,$endDate,$datename,$sum,$where,$whereto){
+        $this->db->select_sum($sum);
+        $this->db->where($datename.' >=', $startDate);
+        $this->db->where($datename.' <=', $endDate);
+        $this->db->from($table);
+        if($where != null || $where != "" || $whereto != null || $whereto != ""){
+            $this->db->where($where, $whereto); 
+        }
+        $data = $this->db->get()->row();
+        return $data;
+    }
     public function CountDatetoDate($table,$startDate,$endDate,$datename){
         $this->db->where($datename.' >=', $startDate);
         $this->db->where($datename.' <=', $endDate);

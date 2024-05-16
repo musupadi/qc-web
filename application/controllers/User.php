@@ -25,6 +25,12 @@ class User extends CI_Controller {
             ['field' => 'email','label' => 'email','rules' => 'required'],
         ];
     }
+    private function rulesEditUser(){
+        return [
+            ['field' => 'id_role','label' => 'Id_role','rules' => 'required'],
+            ['field' => 'email','label' => 'email','rules' => 'required'],
+        ];
+    }
 
 
     public function index()
@@ -100,16 +106,17 @@ class User extends CI_Controller {
     }
     
     public function Edit($id){
-        $this->form_validation->set_rules($this->rulesUser());
+        $this->form_validation->set_rules($this->rulesEditUser());
         $username = $this->session->userdata('nama');
         if($this->form_validation->run() === FALSE){
             $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
             $data['users'] = $this->Models->getID('user','id',$id);
             $data['Data'] = $this->Models->AllUser();
+            $data['role'] = $this->Models->getAll('role');
             $data['title'] = 'User';
             $this->load->view('dashboard/header',$data);
             $this->load->view('dashboard/side',$data);
-            $this->load->view('User/List/main',$data);
+            $this->load->view('User/List/edit',$data);
             $this->load->view('dashboard/footer');
         }else{
             $config['upload_path']          = './img/profile/';
@@ -122,29 +129,41 @@ class User extends CI_Controller {
             // $config['max_height']           = 768;
 
             $this->load->library('upload', $config);
-            $ID = $this->Models->getID('m_user', 'username', $this->session->userdata('nama'));
+            $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
 
-            if ($this->upload->do_upload('photo')) {
-                $old_image = $data['m_user']['photo'];
+            if ($this->upload->do_upload('gambar')) {
+                $old_image = $data['user']['photo'];
                 if ( $old_image != "logo.jpg" ){
                     unlink(FCPATH . 'img/profile/' . $old_image);
                 }
 
                 $new_image = $this->upload->data('file_name');
                 $this->db->set('photo', $new_image);
+                $data['name'] = $this->input->post('name');
+                if($this->input->post('password') != null || $this->input->post('password') != ""){
+                    $data['password'] = MD5($this->input->post('password'));
+                }
+                $data['email'] = $this->input->post('email');
+                $data['jenis_kelamin'] = $this->input->post('jenis_kelamin');
+                $data['kontak'] = $this->input->post('kontak');
+                $data['id_role '] = $this->input->post('id_role');
+                $data['photo'] = $this->upload->data("file_name");
+                $data['created_by'] = $id[0]->id;
+                $data['updated_by'] = $id[0]->id;
             }else{
                 $data['name'] = $this->input->post('name');
-                $data['username'] = $this->input->post('username');
-                $data['password'] = MD5($this->input->post('password')); 
+                if($this->input->post('password') != null || $this->input->post('password') != ""){
+                    $data['password'] = MD5($this->input->post('password'));
+                }
                 $data['email'] = $this->input->post('email');
-                $data['department'] = $this->input->post('department');
-                $data['phone_number'] = $this->input->post('phone_number');
-                $data['id_role'] = $this->input->post('id_role');
-                $data['updated_by'] = $ID[0]->id;
-                $data['updated_at'] = $this->Models->GetTimestamp();
+                $data['jenis_kelamin'] = $this->input->post('jenis_kelamin');
+                $data['kontak'] = $this->input->post('kontak');
+                $data['id_role '] = $this->input->post('id_role');
+                $data['photo'] = "default.png";
+                $data['created_by'] = $id[0]->id;
+                $data['updated_by'] = $id[0]->id;
             }
-            
-            $this->Models->edit('m_user','id',$id,$data);
+            $this->Models->edit('user','id',$id,$data);
             $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
             redirect(base_url('User'));
         }

@@ -96,6 +96,12 @@ class Qc extends CI_Controller {
             $db = $this->Models->importExcelQC($sheetData,$ID[0]->id);
             unlink($filePath);
             if($db==true){
+
+                $logs['action'] = "Menginput Data Checking Result Menggunakan Excel";
+                $logs['created_by'] = $id[0]->id;;
+                $logs['updated_by'] = $id[0]->id;;
+                $this->Models->insert('logs',$logs);
+
                 $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
                 redirect(base_url('Qc'));
             }else{

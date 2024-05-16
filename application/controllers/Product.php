@@ -41,6 +41,72 @@ class Product extends CI_Controller {
         $this->load->view('dashboard/footer');
     }
 
+    public function Forecast($id)
+    {
+        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+        // $data['product'] = $this->Models->GetAllProduct();
+        $data['technology'] = $this->Models->getAll('technology');
+        $data['category'] = $this->Models->getAll('category');
+        $data['title'] = 'Product';
+        $data['product'] = $this->Models->getID('product','id',$id);
+        $i = 1;
+        $forecast = 0;
+        $production = 0;
+        $accuracy = 0;
+        $hit = 0;
+
+
+        for($i=1;$i<=12;$i++)
+        {
+            if($i<10){
+                $i='0'.$i;
+            }
+            $forecast = (int)$this->Models->SumDatetoDate("forecast","2024-".$i."-01","2024-".$i."-31","date","forecast","id_product",$id)->forecast;   
+            $data['forecast'][$i-1] = (int)$forecast;
+            
+
+            $production = (int)$this->Models->SumDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date","qty","id_product",$id)->qty;   
+            $data['production'][$i-1] = (int)$production;
+        
+            if((int)$forecast!=0){
+                    if((int)$production!=0){
+                    if($forecast>=$production){
+                        $hit = $forecast-$production;
+                        if($hit != 0 || $production > 0){
+                            $accuracy = ($hit/$forecast)*100;
+                        }else{
+                            $accuracy = $production;
+                        }
+                        $data['accuracy'][$i-1] = (int)$accuracy;
+                        $data['hit'][$i-1] = ($forecast+$production)/2;
+                    }else{
+                        $hit = $production-$forecast;
+                        if($hit != 0 || $forecast > 0){
+                            $accuracy = ($hit/$production)*100;
+                        }else{
+                            $accuracy = 0;
+                        }
+                        $data['accuracy'][$i-1] = (int)$accuracy;
+                        $data['hit'][$i-1] = ($production+$forecast)/2;
+                    }
+                }else{
+                    $data['accuracy'][$i-1] = 0;
+                    $data['hit'][$i-1] = 0;
+                }
+            }else{
+                $data['accuracy'][$i-1] = 0;
+                $data['hit'][$i-1] = 0;
+            }
+       
+        }
+
+
+        $this->load->view('dashboard/header',$data);
+        $this->load->view('dashboard/side',$data);
+        $this->load->view('Product/forecast',$data);
+        $this->load->view('dashboard/footer');
+    }
+
     public function Add(){
         $this->form_validation->set_rules($this->rulesProduct());
         $ID = $this->Models->getID('user','username',$this->session->userdata('nama'));
@@ -65,6 +131,13 @@ class Product extends CI_Controller {
             $data2['created_by'] = $ID[0]->id;;
             $data2['updated_by'] = $ID[0]->id;;
             $this->Models->insert('product',$data2);
+
+
+            $logs['action'] = "Menginput Product Baru ".$data['label'];
+            $logs['created_by'] = $id[0]->id;;
+            $logs['updated_by'] = $id[0]->id;;
+            $this->Models->insert('logs',$logs);
+
             $this->session->set_flashdata('pesan','<script>alert("Data berhasil disimpan")</script>');
             redirect(base_url('Product'));
         }
@@ -94,10 +167,16 @@ class Product extends CI_Controller {
             redirect(base_url('User/Role'));
         }
     }
-    public function Hapus($id){
-        $this->Models->delete('m_role','id',$id);
+    public function Delete($id){
+        $this->Models->delete('product','id',$id);
         $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil dihapus")</script>');
-        redirect(base_url('User/Role'));
+        $name = $this->Models->getID('user', 'username', $this->session->userdata('nama'));   
+        $logs['action'] = "Menghapus Product".$name[0]->label;
+        $logs['created_by'] = $id[0]->id;;
+        $logs['updated_by'] = $id[0]->id;;
+        $this->Models->insert('logs',$logs);
+
+        redirect(base_url('Product'));
     }
 
     //Category

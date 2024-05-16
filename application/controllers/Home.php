@@ -42,23 +42,56 @@ class Home extends CI_Controller {
         $data['title'] = 'Dashboard';
         $count = 0;
         $i = 1;
+        $forecast = 0;
+        $production = 0;
+        $accuracy = 0;
+        $hit = 0;
+
+
         for($i=1;$i<=12;$i++)
         {
-            $forecast = 0;
-            $ForecastCount = $this->Models->CountDatetoDate("forecast","2024-".$i."-01","2024-".$i."-31","date");
-            for($d=0;$d<$ForecastCount;$d++){
-                $forecast = $forecast + (int)$this->Models->DataDatetoDate("forecast","2024-".$i."-01","2024-".$i."-31","date") == null ? 0 : $this->Models->DataDatetoDate("forecast","2024-".$i."-01","2024-".$i."-31","date")[0]->forecast;    
+            if($i<10){
+                $i='0'.$i;
             }
+            $forecast = (int)$this->Models->SumDatetoDate("forecast","2024-".$i."-01","2024-".$i."-31","date","forecast","","")->forecast;   
             $data['forecast'][$i-1] = (int)$forecast;
+            
 
-            $production = 0;
-            $ProductionCount = $this->Models->CountDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date");
-            for($d=0;$d<$ProductionCount;$d++){
-                $production = $production + (int)$this->Models->DataDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date") == null ? 0 : $this->Models->DataDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date")[0]->qty;    
-            }
+            $production = (int)$this->Models->SumDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date","qty","","")->qty;   
             $data['production'][$i-1] = (int)$production;
-        }
         
+            if((int)$forecast!=0){
+                    if((int)$production!=0){
+                    if($forecast>=$production){
+                        $hit = $forecast-$production;
+                        if($hit != 0 || $production > 0){
+                            $accuracy = ($hit/$forecast)*100;
+                        }else{
+                            $accuracy = $production;
+                        }
+                        $data['accuracy'][$i-1] = (int)$accuracy;
+                        $data['hit'][$i-1] = ($forecast+$production)/2;
+                    }else{
+                        $hit = $production-$forecast;
+                        if($hit != 0 || $forecast > 0){
+                            $accuracy = ($hit/$production)*100;
+                        }else{
+                            $accuracy = 0;
+                        }
+                        $data['accuracy'][$i-1] = (int)$accuracy;
+                        $data['hit'][$i-1] = ($production+$forecast)/2;
+                    }
+                }else{
+                    $data['accuracy'][$i-1] = 0;
+                    $data['hit'][$i-1] = 0;
+                }
+            }else{
+                $data['accuracy'][$i-1] = 0;
+                $data['hit'][$i-1] = 0;
+            }
+       
+        }
+   
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
         $this->load->view('dashboard/main',$data);
@@ -66,7 +99,7 @@ class Home extends CI_Controller {
     }
 
     
-
+    
     public function profile(){
         $data['barang'] = $this->Models->getMyProduct($this->session->userdata('nama'));
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));

@@ -48,10 +48,15 @@
                   <td><?php echo $data->color?></td>
                   <td><?php echo $data->series?></td>
                   <td style="text-align: center;">
+                    <a href="<?php echo base_url('Product/Forecast/'.$data->id);?>">
+                      <i class="fa fa-fw fa-bar-chart"></i>
+                    </a>
+                    </br>  
                     <a href="<?php echo base_url('User/EditRole/'.$data->id);?>">
                       <i class="fa fa-fw fa-pencil"></i>
                     </a> 
-                    <a href="<?php echo base_url('User/HapusRole/'.$data->id);?>" onclick="return confirm('yakin?');">
+                    
+                    <a href="<?php echo base_url('Product/Delete/'.$data->id);?>" onclick="return confirm('yakin ingin Hapus Data '.<?php echo $data->label?>.'?');">
                       <i class="fa fa-fw fa-trash"></i>
                     </a>
                     </div>
