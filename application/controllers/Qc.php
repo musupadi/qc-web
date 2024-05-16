@@ -16,7 +16,7 @@ class Qc extends CI_Controller {
     }
     private function rulesProduct(){
         return [
-            ['field' => 'id','label' => 'id','rules' => 'required'],
+            ['field' => 'id_product','label' => 'id_product','rules' => 'required'],
             ['field' => 'load_number','label' => 'load_number','rules' => 'required'],
             ['field' => 'qty','label' => 'qty','rules' => 'required']
         ];
@@ -43,20 +43,22 @@ class Qc extends CI_Controller {
 
     public function Add(){
         $this->form_validation->set_rules($this->rulesProduct());
-        $ID = $this->Models->getID('user','username',$this->session->userdata('nama'));
-        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
-        $data['product'] = $this->Models->GetAllProduct();
-        $data['technology'] = $this->Models->getAll('technology');
-        $data['category'] = $this->Models->getAll('category');
-        $data['title'] = 'QC';
         if($this->form_validation->run() === FALSE){
+            $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+            $data['Logs'] = $this->Models->QC("","","","");
+            $data['technology'] = $this->Models->getAll('technology');
+            $data['category'] = $this->Models->getAll('category');
+            $data['title'] = 'QC';
             $this->load->view('dashboard/header',$data);
             $this->load->view('dashboard/side',$data);
             $this->load->view('QC/main',$data);
             $this->load->view('dashboard/footer');
+
+            $this->session->set_flashdata('pesan','<script>alert("Data Gagal disimpan")</script>');
         }else{          
+            $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));  
             $Product = $this->Models->getID('product','id',$this->input->post('id'));
-            $data2['id_product'] = $this->input->post('id');
+            $data2['id_product'] = $this->input->post('id_product');
             $data2['load_number'] = $this->input->post('load_number');
             $data2['qty'] = $this->input->post('qty');
             $data2['production_date'] = $this->input->post('production_date');

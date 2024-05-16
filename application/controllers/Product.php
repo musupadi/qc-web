@@ -27,6 +27,8 @@ class Product extends CI_Controller {
         ];
     }
 
+    
+
 
     public function index()
     {
@@ -133,7 +135,7 @@ class Product extends CI_Controller {
             $this->Models->insert('product',$data2);
 
 
-            $logs['action'] = "Menginput Product Baru ".$data['label'];
+            $logs['action'] = "Menginput Product Baru ".$data2['label'];
             $logs['created_by'] = $id[0]->id;;
             $logs['updated_by'] = $id[0]->id;;
             $this->Models->insert('logs',$logs);
@@ -142,29 +144,32 @@ class Product extends CI_Controller {
             redirect(base_url('Product'));
         }
     }
-    public function Edit($id){
-        $this->form_validation->set_rules($this->rulesRoles());
+    public function Edit(){
+        $this->form_validation->set_rules($this->rulesProduct());
         if($this->form_validation->run() === false){
-            $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));   
-            $where = array(
-                'id' => $id
-            );
-            $data['role'] = $this->Models->getWhere2("role",$where);
-            $data['title'] = 'Edit Role';
+            $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+            $data['product'] = $this->Models->GetAllProduct();
+            $data['technology'] = $this->Models->getAll('technology');
+            $data['category'] = $this->Models->getAll('category');
+            $data['title'] = 'Product';
             $this->load->view('dashboard/header',$data);
-            $this->load->view('User/Role/side',$data);
-            $this->load->view('User/Role/edit',$data);
-            $this->load->view('dashboard/footer');  
-            $this->session->set_flashdata('Pesan', '<script>alert("Data gagal diubah")</script>');
+            $this->load->view('dashboard/side',$data);
+            $this->load->view('Product/main',$data);
+            $this->load->view('dashboard/footer');
         }else{
-            $ID = $this->Models->getID('m_user', 'username', $this->session->userdata('nama'));     
-            $data['label'] = $this->input->post('label');
-            $data['level'] = $this->input->post('level');
-            $data['updated_by'] = $ID[0]->id;
-            $data['updated_at'] = $this->Models->GetTimestamp();
-            $this->Models->edit('m_role','id',$id,$data);
+            $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));     
+            $data2['code'] = $this->input->post('code');
+            $data2['label'] = $this->input->post('label');
+            $data2['color'] = $this->input->post('color');
+            $data2['series'] = $this->input->post('series');
+            $data2['code_category'] = $this->input->post('code_category');
+            $data2['id_category'] = $this->input->post('id_category');
+            $data2['id_technology'] = $this->input->post('id_technology');
+            $data2['created_by'] = $ID[0]->id;;
+            $data2['updated_by'] = $ID[0]->id;;
+            $this->Models->edit('product','id',$this->input->post('id'),$data2);
             $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil diubah")</script>');
-            redirect(base_url('User/Role'));
+            redirect(base_url('Product'));
         }
     }
     public function Delete($id){
@@ -210,6 +215,38 @@ class Product extends CI_Controller {
             redirect(base_url('Product/Category'));
         }
     }
+    public function EditCategory(){
+        $this->form_validation->set_rules($this->rulesCategory());
+        if($this->form_validation->run() === false){
+            $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+            $data['category'] = $this->Models->getAll('category');
+            $data['title'] = 'Technology';
+            $this->load->view('dashboard/header',$data);
+            $this->load->view('dashboard/side',$data);
+            $this->load->view('Product/Category/main',$data);
+            $this->load->view('dashboard/footer');
+            $this->session->set_flashdata('Pesan', '<script>alert("Data gagal diubah")</script>');
+        }else{
+            $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));     
+            $data['label'] = $this->input->post('label');
+            $data['updated_by'] = $ID[0]->id;
+            $data['updated_at'] = $this->Models->GetTimestamp();
+            $this->Models->edit('category','id',$this->input->post('id'),$data);
+            $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil diubah")</script>');
+            redirect(base_url('Product/Category'));
+        }
+    }
+    public function DeleteCategory($id){
+        $this->Models->delete('product','id',$id);
+        $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil dihapus")</script>');
+        $name = $this->Models->getID('user', 'username', $this->session->userdata('nama'));   
+        $logs['action'] = "Menghapus Product".$name[0]->label;
+        $logs['created_by'] = $id[0]->id;;
+        $logs['updated_by'] = $id[0]->id;;
+        $this->Models->insert('logs',$logs);
+
+        redirect(base_url('Product/Technology'));
+    }
 
     //Technology
     public function Technology()
@@ -242,7 +279,38 @@ class Product extends CI_Controller {
             redirect(base_url('Product/Technology'));
         }
     }
+    public function EditTechnology(){
+        $this->form_validation->set_rules($this->rulesCategory());
+        if($this->form_validation->run() === false){
+            $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+            $data['technology'] = $this->Models->getAll('technology');
+            $data['title'] = 'Technology';
+            $this->load->view('dashboard/header',$data);
+            $this->load->view('dashboard/side',$data);
+            $this->load->view('Product/Technology/main',$data);
+            $this->load->view('dashboard/footer');
+            $this->session->set_flashdata('Pesan', '<script>alert("Data gagal diubah")</script>');
+        }else{
+            $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));     
+            $data['label'] = $this->input->post('label');
+            $data['updated_by'] = $ID[0]->id;
+            $data['updated_at'] = $this->Models->GetTimestamp();
+            $this->Models->edit('technology','id',$this->input->post('id'),$data);
+            $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil diubah")</script>');
+            redirect(base_url('Product/Technology'));
+        }
+    }
+    public function DeleteTechnology($id){
+        $this->Models->delete('product','id',$id);
+        $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil dihapus")</script>');
+        $name = $this->Models->getID('user', 'username', $this->session->userdata('nama'));   
+        $logs['action'] = "Menghapus Product".$name[0]->label;
+        $logs['created_by'] = $id[0]->id;;
+        $logs['updated_by'] = $id[0]->id;;
+        $this->Models->insert('logs',$logs);
 
+        redirect(base_url('Product/Technology'));
+    }
 }
 
 /* End of file Home.php */

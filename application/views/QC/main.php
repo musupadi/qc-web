@@ -113,7 +113,7 @@
     </section>
     <!-- /.content -->
 
-    <script>
+<script>
   function input(id,code,label)
   {
     document.getElementById('id').value = id;
