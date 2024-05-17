@@ -49,7 +49,7 @@
             <li><a href="<?php echo base_url('User')?>"><i class="fa fa-user"></i>User</a></li>
           </ul>
         </li>
-        <li class=""><a href="<?php echo base_url("Announcement")?>"><i class="fa fa-history"></i> <span>Logs</span></a></li>
+        <li class=""><a href="<?php echo base_url("Announcement")?>"><i class="fa fa-history"></i> <span>Customer List</span></a></li>
         <li><a href="<?php echo base_url("Login/logout")?>"onclick="return confirm('are you going to logout?');"><i class="fa fa-user-times"></i> <span>Sign Out</span></a></li>
         <?php endif ?>
       </ul>

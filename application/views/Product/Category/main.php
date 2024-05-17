@@ -14,7 +14,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Product -> Technology</h3>
+                    <h3 class="box-title">Product -> Category</h3>
                 </div>
                 <!-- /.box-header -->
                 <a data-toggle="modal" data-target="#modal-success" class="btn btn-success btn-sm" style="width: 120px; margin-left: 10px">
@@ -58,7 +58,7 @@
                 <?= $this->session->flashdata('pesan'); ?>
                 <!-- /.box-body -->
 
-                <!-- Add Technology Modal -->
+                <!-- Add Category Modal -->
                 <div class="modal modal-success fade" id="modal-success">
                     <?= form_open_multipart('Product/AddCategory/') ?>
                         <div class="modal-dialog">
@@ -67,7 +67,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">Input Technology</h4>
+                                    <h4 class="modal-title">Input Category</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="box-body">

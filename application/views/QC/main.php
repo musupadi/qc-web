@@ -1,10 +1,10 @@
 
 <section class="content-header">
       <h1>
-        Logs
+        Loading Product
       </h1>
       <ol class="breadcrumb">
-        <li class="active"><a href="#"><i class="fa fa-newspaper-o"></i>Logs</a></li>
+        <li class="active"><a href="#"><i class="fa fa-newspaper-o"></i>Loading Product</a></li>
       </ol>
     </section>
 
@@ -14,10 +14,10 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Logs</h3>
+              <h3 class="box-title">Loading Product</h3>
             </div>
             <!-- /.box-header -->
-            <a href="<?php echo base_url('Qc/Addqc')?>" class="btn btn-success btn-sm" style="margin-left: 10px"><i class="fa fa-fw fa-plus"></i>Input Production</a>
+            <a href="<?php echo base_url('Qc/Addqc')?>" class="btn btn-success btn-sm" style="margin-left: 10px"><i class="fa fa-fw fa-plus"></i>Input Product</a>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">

@@ -36,7 +36,7 @@
     <div class="login-box-body" style="border-radius: 10px">
       <div class="box-header with-border">
         <div>
-            <img class="img-responsive" src="<?php echo base_url()?>img/logo.jpg" alt="User profile picture" width="150px" style="margin: auto;">
+            <img class="img-responsive" src="<?php echo base_url()?>img/logo1.jpg" alt="User profile picture" width="150px" style="margin: auto;">
         </div>
     </div>
     <div class="login-box-body">

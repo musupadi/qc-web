@@ -1,7 +1,7 @@
 
 <section class="content-header">
       <h1>
-        Logs
+        Customer List
       </h1>
       <ol class="breadcrumb">
         <li class="active"><a href="#"><i class="fa fa-newspaper-o"></i>Logs</a></li>
@@ -14,7 +14,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Logs</h3>
+              <h3 class="box-title">Customer List</h3>
             </div>
             <!-- /.box-header -->
             <a data-toggle="modal" data-target="#modal-success" class="btn btn-success btn-sm" style="margin-left: 10px"><i class="fa fa-fw fa-plus"></i>Input Customer</a>

@@ -27,9 +27,9 @@
         
         <?php if ( $data->id_role == 1 || $data->id_role == 2 || $data->id_role == 4) : ?>
             <?php if ($title == "QC") : ?>
-              <li class="active"><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Checking Result</span></a></li>
+              <li class="active"><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Loading Product</span></a></li>
             <?php else : ?>
-              <li><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Checking Result</span></a></li>
+              <li><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Loading Product</span></a></li>
             <?php endif ?>
           
         <?php endif ?>

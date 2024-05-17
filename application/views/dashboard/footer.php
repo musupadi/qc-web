@@ -4,7 +4,7 @@
   <div class="pull-right hidden-xs">
     <b>Version</b> 1
   </div>
-  <strong>Copyright &copy; 2024 <a href="<?php echo base_url(); ?>">Ascendant POS</a>.</strong> All rights reserved.
+  <strong>Copyright &copy; 2024 <a href="<?php echo base_url(); ?>">Forecast Accuracy, President University</a>.</strong> All rights reserved.
 </footer>
 
 <!-- Control Sidebar -->
