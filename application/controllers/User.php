@@ -111,6 +111,7 @@ class User extends CI_Controller {
         if($this->form_validation->run() === FALSE){
             $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
             $data['users'] = $this->Models->getID('user','id',$id);
+            $data['id_user'] = $id;
             $data['Data'] = $this->Models->AllUser();
             $data['role'] = $this->Models->getAll('role');
             $data['title'] = 'User';
