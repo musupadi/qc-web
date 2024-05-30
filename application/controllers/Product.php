@@ -24,18 +24,231 @@ class Product extends CI_Controller {
     private function rulesCategory(){
         return [
             ['field' => 'label','label' => 'Label','rules' => 'required'],
+        ]; }
+    private function rulesRawMaterialCategory(){
+         return [
+            ['field' => 'label','label' => 'Label','rules' => 'required'],
+        ]; }
+        private function rulesRawMaterialCountries() {
+            return [
+                ['field' => 'label', 'label' => 'Label', 'rules' => 'required']
+            ];
+        
+        
+    }private function rulesRawMaterial(){
+        return [
+            ['field' => 'code', 'label' => 'Code', 'rules' => 'required'],
+            ['field' => 'label', 'label' => 'Label', 'rules' => 'required'],
+            ['field' => 'id_category', 'label' => 'Category', 'rules' => 'required'],
+            ['field' => 'id_country', 'label' => 'Country', 'rules' => 'required']
         ];
     }
-
+    
     
 
+    
+    //Raw Material
+    public function RawMaterial() {
+        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+        $data['rawmaterial'] = $this->Models->GetAllRawMaterial();
+        $data['rawmat_category'] = $this->Models->GetAllRawMaterialCategory();
+        $data['countries'] = $this->Models->GetAllRawMaterialCountries();
 
+        // Set the page title
+        $data['title'] = 'Raw Material';
+        
+ 
+        // Load the view with data
+        $this->load->view('dashboard/header', $data);
+        $this->load->view('dashboard/side',$data);
+        $this->load->view('Product/RawMaterial/main', $data);
+        $this->load->view('dashboard/footer');
+    }
+    //Add Data Raw Material
+    public function AddRawMaterial() {
+        $this->form_validation->set_rules($this->rulesRawMaterial());
+    
+        $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
+        $data['user'] = $ID;
+        $data['rawmat_category'] = $this->Models->getAll('rawmat_category');
+        $data['countries'] = $this->Models->getAll('countries');
+        $data['title'] = 'Raw Material';
+    
+        if ($this->form_validation->run() === FALSE) {
+            // Validation failed, load the view with validation errors
+            $this->load->view('dashboard/header', $data);
+            $this->load->view('dashboard/side', $data);
+            $this->load->view('Product/RawMaterial/main', $data);
+            $this->load->view('dashboard/footer');
+        } else {
+            // Validation passed, prepare data for insertion
+            $formData = array(
+                'code' => $this->input->post('code'),
+                'label' => $this->input->post('label'),
+                'id_category' => $this->input->post('id_category'),
+                'id_countries' => $this->input->post('id_country'), // Correct field name for id_country
+                'created_by' => $ID[0]->id,
+                'updated_by' => $ID[0]->id
+            );
+    
+            // Insert data into the database
+            $this->Models->insert('rawmaterial', $formData);
+    
+            // Log the action
+            $logs['action'] = "Menginput Raw Material Baru " . $formData['label'];
+            $logs['created_by'] = $ID[0]->id;
+            $logs['updated_by'] = $ID[0]->id;
+            $this->Models->insert('logs', $logs);
+    
+            // Set flash message and redirect
+            $this->session->set_flashdata('pesan', '<script>alert("Data berhasil disimpan")</script>');
+            redirect(base_url('Product/RawMaterial')); // Redirect to the RawMaterial page
+        }
+    }
+    
+            //RAW MATERIAL CATEGORY
+        public function RawMaterialCategory()
+    {
+        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+        $data['rawmat_category'] = $this->Models->GetAllRawMaterialCategory();
+        $data['title'] = 'Raw Material Category';
+        $this->load->view('dashboard/header',$data);
+        $this->load->view('dashboard/side',$data);
+        $this->load->view('Product/RawMaterialCategory/main',$data);
+        $this->load->view('dashboard/footer');
+    }
+    public function AddRawMaterialCategory() {
+        $this->form_validation->set_rules($this->rulesRawMaterialCategory());
+        
+        if ($this->form_validation->run() === FALSE) {
+            $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
+            $data['rawmat_category'] = $this->Models->getAll('rawmat_category'); // Assuming this method exists
+            $data['title'] = 'Raw Material Category';
+            
+            $this->load->view('dashboard/header', $data);
+            $this->load->view('dashboard/side', $data);
+            $this->load->view('Product/RawMaterialCategory/main', $data);
+            $this->load->view('dashboard/footer');
+        } else {
+            $id = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
+            
+            $data['label'] = $this->input->post('label');
+            $data['created_by'] = $id[0]->id;
+            $data['updated_by'] = $id[0]->id;
+            
+            $this->Models->insert('rawmat_category', $data);
+            
+            $this->session->set_flashdata('pesan', '<script>alert("Data berhasil disimpan")</script>');
+            redirect(base_url('Product/RawMaterialCategory'));
+        }
+    }
+    public function EditRawMaterialCategory(){
+        $this->form_validation->set_rules($this->rulesRawMaterialCategory());
+        
+        if ($this->form_validation->run() === false) {
+            $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
+            $data['rawmat_category'] = $this->Models->getAll('rawmat_category'); // Assuming this method exists
+            $data['title'] = 'Edit Raw Material Category';
+            
+            $this->load->view('dashboard/header', $data);
+            $this->load->view('dashboard/side', $data);
+            $this->load->view('Product/RawMaterialCategory/main', $data);
+            $this->load->view('dashboard/footer');
+            
+            $this->session->set_flashdata('Pesan', '<script>alert("Data gagal diubah")</script>');
+        } else {
+            $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));     
+            $data['label'] = $this->input->post('label');
+            $data['updated_by'] = $ID[0]->id;
+            $data['updated_at'] = $this->Models->GetTimestamp();
+            
+            $this->Models->edit('rawmat_category', 'id', $this->input->post('id'), $data);
+            
+            $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil diubah")</script>');
+            redirect(base_url('Product/RawMaterialCategory'));
+        }
+    }
+    public function DeleteRawMaterialCategory($id){
+        $this->form_validation->set_rules($this->rulesRawMaterialCategory());
+        $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));     
+        $this->Models->delete('rawmat_category','id',$id);
+        
+        $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil dihapus")</script>');
+        
+        // Logging the deletion action
+        $name = $this->Models->getID('user', 'username', $this->session->userdata('nama'));   
+        $logs['action'] = "Menghapus Raw Material Category " . $name[0]->label; // Adjust as needed
+        $logs['created_by'] = $ID[0]->id;
+        $logs['updated_by'] = $ID[0]->id;
+        $this->Models->insert('logs', $logs);
+        
+        redirect(base_url('Product/RawMaterialCategory'));
+    }
+    
+    
+    //END RAW MATERIAL CATEGORY
+
+    // RAW MATERIAL COUNTRY
+    public function RawMaterialCountries() {
+        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+        $data['countries'] = $this->Models->GetAllRawMaterialCountries();
+        $data['title'] = 'Country';
+
+        // Load the view with data
+        $this->load->view('dashboard/header', $data);
+        $this->load->view('dashboard/side',$data);
+        $this->load->view('Product/RawMaterialCountries/main', $data);
+        $this->load->view('dashboard/footer');
+    }
+    public function AddRawMaterialCountries() {
+        $this->form_validation->set_rules($this->rulesRawMaterialCountries());
+        
+        if ($this->form_validation->run() === FALSE) {
+            $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
+            $data['countries'] = $this->Models->GetAllRawMaterialCountries(); // Assuming this method exists
+            $data['title'] = 'Countries';
+            
+            $this->load->view('dashboard/header', $data);
+            $this->load->view('dashboard/side', $data);
+            $this->load->view('Product/RawMaterialCountries/main', $data);
+            $this->load->view('dashboard/footer');
+        } else {
+            $id = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
+            
+            $data['label'] = $this->input->post('label');
+            $data['created_by'] = $id[0]->id;
+            $data['updated_by'] = $id[0]->id;
+            
+            $this->Models->insert('countries', $data);
+            
+            $this->session->set_flashdata('pesan', '<script>alert("Data berhasil disimpan")</script>');
+            redirect(base_url('Product/RawMaterialCountries'));
+        } }
+        public function DeleteRawMaterialCountries($id){
+            $this->form_validation->set_rules($this->rulesRawMaterialCountries());
+            $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));     
+            $this->Models->delete('countries','id',$id);
+            
+            $this->session->set_flashdata('Pesan', '<script>alert("Data berhasil dihapus")</script>');
+            
+            // Logging the deletion action
+            $name = $this->Models->getID('user', 'username', $this->session->userdata('nama'));   
+            $logs['action'] = "Menghapus Raw Material Country " . $name[0]->label; // Adjust as needed
+            $logs['created_by'] = $ID[0]->id;
+            $logs['updated_by'] = $ID[0]->id;
+            $this->Models->insert('logs', $logs);
+            
+            redirect(base_url('Product/RawMaterialCountries'));
+        }
+
+    //END RAW MATERIAL COUNTRY
     public function index()
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['product'] = $this->Models->GetAllProduct();
         $data['technology'] = $this->Models->getAll('technology');
         $data['category'] = $this->Models->getAll('category');
+        $data['total_products'] = $this->Models->getTotalProducts();
         $data['title'] = 'Product';
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
@@ -299,6 +512,9 @@ class Product extends CI_Controller {
 
         redirect(base_url('Product/Technology'));
     }
+
+
+
 }
 
 /* End of file Home.php */

@@ -17,7 +17,7 @@
         </div>
         <!-- /.box-header -->
         <a data-toggle="modal" data-target="#modal-success" class="btn btn-success btn-sm" style="margin-left: 10px">
-          <i class="fa fa-fw fa-plus"></i> Import Excel
+          <i class="fa fa-fw fa-plus"></i> Input Product
         </a>
         <!-- /.box-header -->
         <div class="box-body">

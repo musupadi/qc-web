@@ -34,10 +34,11 @@ class Qc extends CI_Controller {
         $data['Logs'] = $this->Models->QC("","","","");
         $data['technology'] = $this->Models->getAll('technology');
         $data['category'] = $this->Models->getAll('category');
-        $data['title'] = 'QC';
+        $data['total_load_products'] = $this->Models->getTotalLoadProducts(); // SHOW DI DASHBOARD
+        $data['title'] = 'Loading Product';
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
-        $this->load->view('QC/main',$data);
+        $this->load->view('QC/main',$data);  // SHOW DI DASHBOARD
         $this->load->view('dashboard/footer');
     }
 
@@ -146,14 +147,14 @@ class Qc extends CI_Controller {
         redirect(base_url('User/Role'));
     }
 
-    //Add QC
+    //Add QC / 
     public function Addqc()
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['product'] = $this->Models->GetAllProduct();
         $data['technology'] = $this->Models->getAll('technology');
         $data['category'] = $this->Models->getAll('category');
-        $data['title'] = 'QC';
+        $data['title'] = 'Loading Product';
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
         $this->load->view('QC/Add/main',$data);

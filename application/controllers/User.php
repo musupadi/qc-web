@@ -37,6 +37,7 @@ class User extends CI_Controller {
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['Data'] = $this->Models->AllUser();
+        $data['total_users'] = $this->Models->countUsers();
         $data['title'] = 'User';
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);

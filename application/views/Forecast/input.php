@@ -1,10 +1,10 @@
 <section class="content-header">
     <h1>
-        Input User
+        Input Forecast
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-newspaper-o"></i>User</a></li>
-        <li class="active">Input User</li>
+        <li><a href="#"><i class="fa fa-newspaper-o"></i>Forecast</a></li>
+        <li class="active">Input Forecast</li>
     </ol>
 </section>
 <section class="content">

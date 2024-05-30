@@ -1,7 +1,7 @@
 
 <section class="content-header">
       <h1>
-        Logs
+        Forecast
       </h1>
       <ol class="breadcrumb">
         <li class="active"><a href="#"><i class="fa fa-newspaper-o"></i>Forecast</a></li>

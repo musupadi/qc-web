@@ -133,6 +133,25 @@ class Models extends CI_Model {
         $data = $this->db->get()->result();
         return $data;
     }
+    public function GetAllRawMaterial(){
+        $this->db->select('a.id, a.code, a.label, b.label as category, c.label as countries, a.created_at, a.created_by, a.updated_at, a.updated_by, b.label as category, c.label as country_name');
+        $this->db->from('rawmaterial a');
+        $this->db->join('category b', 'a.id_category = b.id', 'left');
+        $this->db->join('countries c', 'a.id_countries = c.id', 'left');
+        $data = $this->db->get()->result();
+        return $data;
+    }
+    public function GetAllRawMaterialCategory() {
+        $this->db->select('id, label, created_at, created_by, updated_at, updated_by');
+        $data = $this->db->get('rawmat_category')->result();
+        return $data;
+    }
+    public function GetAllRawMaterialCountries() {
+        $this->db->select('id, label, created_at, created_by, updated_at, updated_by');
+        $data = $this->db->get('countries')->result();
+        return $data;
+    }
+
     public function GetAllProduct(){
         $this->db->select('a.id,a.code,a.label,a.color,a.series,a.code_category,b.label as category,c.label as technology,a.created_at,a.updated_at');
         $this->db->from('product a');
@@ -159,6 +178,25 @@ class Models extends CI_Model {
         return $data;
     }
 
+    public function IncomingRawMaterial($start_date,$end_date,$user,$id_product){
+        $this->db->select('a.id,a.production_date,a.qty,a.load_number,a.created_at,b.code,b.label');
+        $this->db->from('rawmaterial a');
+        $this->db->join('rawmaterial b','a.id_rawmaterial = b.id','left');
+        if($start_date != "" && $end_date != ""){
+            $this->db->where('created_at >=', $startDate);
+            $this->db->where('created_at <=', $endDate);
+        }else if($start_date != ""){
+            $this->db->where('created_at >=', $startDate);
+        }
+        if($user != ""){
+            $this->db->where('created_by', $user);
+        }
+        if($id_rawmaterial != ""){
+            $this->db->where('id_rawmaterial', $id_product);
+        }
+        $data = $this->db->get()->result();
+        return $data;
+    }
     public function QC($start_date,$end_date,$user,$id_product){
         $this->db->select('a.id,a.production_date,a.qty,a.load_number,a.created_at,b.code,b.label');
         $this->db->from('qc a');
@@ -179,6 +217,23 @@ class Models extends CI_Model {
         return $data;
     }
 
+
+    public function getTotalProducts(){
+        $this->db->from('product');
+        return $this->db->count_all_results();
+    }
+    
+    public function getTotalLoadProducts()
+    {
+    $this->db->from('qc');
+    return $this->db->count_all_results();
+    }
+        public function countUsers() {
+        $query = $this->db->count_all('user');
+        return $query;
+    }
+
+    //RAW MATERIAL
 
 
     //Model Lama

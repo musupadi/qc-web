@@ -40,12 +40,16 @@ class Home extends CI_Controller {
     {
         $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
         $data['title'] = 'Dashboard';
+        $data['total_products'] = $this->Models->getTotalProducts();
+        $data['total_load_products'] = $this->Models->getTotalLoadProducts();
+        $data['total_users'] = $this->Models->countUsers();
         $count = 0;
         $i = 1;
         $forecast = 0;
         $production = 0;
         $accuracy = 0;
         $hit = 0;
+        $total_accuracy = 0;
 
 
         for($i=1;$i<=12;$i++)
@@ -89,9 +93,11 @@ class Home extends CI_Controller {
                 $data['accuracy'][$i-1] = 0;
                 $data['hit'][$i-1] = 0;
             }
-       
+            $total_accuracy += $data['accuracy'][$i - 1];
+            $average_accuracy = $total_accuracy / 12;
+            $data['average_accuracy'] = $average_accuracy;
         }
-   
+        
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
         $this->load->view('dashboard/main',$data);
@@ -421,7 +427,7 @@ class Home extends CI_Controller {
         $pdf->AddPage();
 
          // Image URL
-         $imageUrl = 'https://portal.podomorouniversity.ac.id/assets/icon/logo_pu.png'; // Update with your image URL
+         //$imageUrl = 'https://portal.podomorouniversity.ac.id/assets/icon/logo_pu.png'; // Update with your image URL
 
          // Add image to PDF (x, y, width, height)
         $pdf->Image($imageUrl, 150, 7.5, 50, 0);

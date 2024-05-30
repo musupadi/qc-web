@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 03:54 AM
+-- Generation Time: May 30, 2024 at 08:22 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.2.34
 
@@ -41,7 +41,30 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `label`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 'Solvent', '2024-04-29 15:24:34', 2, '2024-04-29 15:24:34', 2);
+(1, 'Toast', '2024-05-17 00:36:16', 2, '2024-05-17 00:36:16', 2),
+(2, 'ss', '2024-05-17 00:37:43', 2, '2024-05-17 00:37:52', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `countries`
+--
+
+CREATE TABLE `countries` (
+  `id` int(11) NOT NULL,
+  `label` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(11) NOT NULL,
+  `updated_at` datetime DEFAULT current_timestamp(),
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `countries`
+--
+
+INSERT INTO `countries` (`id`, `label`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, 'Test', '2024-05-30 10:34:45', 1, '2024-05-30 10:34:45', 1);
 
 -- --------------------------------------------------------
 
@@ -52,9 +75,9 @@ INSERT INTO `category` (`id`, `label`, `created_at`, `created_by`, `updated_at`,
 CREATE TABLE `customer` (
   `id` int(11) NOT NULL,
   `label` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `created_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -63,7 +86,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `label`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 'Test', '0000-00-00 00:00:00', 3, '0000-00-00 00:00:00', 3);
+(1, 'Tost', '2024-05-17 14:42:16', 2, '2024-05-17 14:42:16', 2);
 
 -- --------------------------------------------------------
 
@@ -91,7 +114,8 @@ CREATE TABLE `forecast` (
 --
 
 INSERT INTO `forecast` (`id`, `id_product`, `label`, `forecast`, `date`, `stock`, `qty`, `id_customer`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 1, 'Test Forecast', 100000, '2024-05-03', 100, 100, 1, '2024-05-03 16:10:13', 1, '2024-05-03 16:10:13', 1);
+(1, 3, '10', 10, '2024-05-17', 11, 11, 1, '2024-05-17 15:32:52', 2, '2024-05-17 15:32:52', 2),
+(2, 3, 'Tost', 12, '2024-05-17', 11, 11, 1, '2024-05-17 15:34:03', 2, '2024-05-17 15:34:03', 2);
 
 -- --------------------------------------------------------
 
@@ -114,8 +138,15 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`id`, `status`, `action`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 'Success', 'Menginput Product Test Product > 312', '2024-04-30 16:56:04', 2, '2024-04-30 16:56:04', 2),
-(2, 'Success', 'Menginput Customer Baru Test', '2024-05-03 15:17:33', 3, '2024-05-03 15:17:33', 3);
+(1, 'Success', 'Menginput Product  > 11', '2024-05-17 01:09:12', 2, '2024-05-17 01:09:12', 2),
+(2, 'Success', 'Menginput Product Baru 123', '2024-05-17 14:17:46', 2, '2024-05-17 14:17:46', 2),
+(3, 'Success', 'Menghapus Product', '2024-05-17 14:28:43', 2, '2024-05-17 14:28:43', 2),
+(4, 'Success', 'Menghapus Product', '2024-05-17 14:28:47', 2, '2024-05-17 14:28:47', 2),
+(5, 'Success', 'Menginput Customer Baru Tost', '2024-05-17 14:42:16', 2, '2024-05-17 14:42:16', 2),
+(6, 'Success', 'Menginput Forecast Tost Dengan Nilai 123', '2024-05-17 14:42:42', 2, '2024-05-17 14:42:42', 2),
+(7, 'Success', 'Menginput Forecast 123 Dengan Nilai 123', '2024-05-17 14:43:02', 2, '2024-05-17 14:43:02', 2),
+(8, 'Success', 'Menginput Forecast Tost Dengan Nilai 12', '2024-05-17 15:34:03', 2, '2024-05-17 15:34:03', 2),
+(9, 'Success', 'Menginput Raw Material Baru Test', '2024-05-30 10:40:51', 1, '2024-05-30 10:40:51', 1);
 
 -- --------------------------------------------------------
 
@@ -143,7 +174,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `code`, `label`, `color`, `series`, `code_category`, `id_category`, `id_technology`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 'TEST123', 'Test Product', 'Test', 'Test', '', 1, 1, '2024-04-30 09:55:40', 2, '0000-00-00 00:00:00', 2);
+(3, '321', 'Taost', '123', 'Test', '123', 1, 1, '2024-05-17 00:38:37', 2, '0000-00-00 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -168,8 +199,54 @@ CREATE TABLE `qc` (
 --
 
 INSERT INTO `qc` (`id`, `id_product`, `load_number`, `qty`, `production_date`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 1, 'Test123', 100, '2024-04-30', '2024-04-30 11:21:24', 2, '2024-04-30 11:21:24', 2),
-(2, 1, '312', 312, '2024-05-09', '2024-04-30 16:56:04', 2, '2024-04-30 16:56:04', 2);
+(2, 3, '11', 11, '2024-05-17', '2024-05-17 01:09:12', 2, '2024-05-17 01:09:12', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rawmaterial`
+--
+
+CREATE TABLE `rawmaterial` (
+  `id` int(11) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `label` varchar(255) NOT NULL,
+  `id_category` int(11) NOT NULL,
+  `id_countries` int(11) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rawmaterial`
+--
+
+INSERT INTO `rawmaterial` (`id`, `code`, `label`, `id_category`, `id_countries`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, '12321', 'Test', 1, 1, '2024-05-30 10:40:51', 1, '2024-05-30 10:40:51', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rawmat_category`
+--
+
+CREATE TABLE `rawmat_category` (
+  `id` int(11) NOT NULL,
+  `label` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rawmat_category`
+--
+
+INSERT INTO `rawmat_category` (`id`, `label`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, 'Test', '2024-05-30 10:34:38', 1, '2024-05-30 10:34:38', 1);
 
 -- --------------------------------------------------------
 
@@ -195,7 +272,7 @@ INSERT INTO `role` (`id`, `level`, `label`, `created_at`, `created_by`, `updated
 (1, 1, 'Super Admin', '2024-04-29 09:59:07', 1, '2024-04-29 09:59:07', 1),
 (2, 2, 'Owner', '2024-04-29 10:42:33', 1, '2024-04-29 10:42:33', 1),
 (3, 3, 'Marketing', '2024-04-29 13:16:23', 1, '2024-04-29 13:16:23', 1),
-(4, 4, 'PIC', '2024-04-29 13:16:46', 1, '2024-04-29 13:16:46', 1);
+(4, 4, 'PPIC', '2024-05-17 14:38:11', 1, '2024-05-17 14:38:11', 1);
 
 -- --------------------------------------------------------
 
@@ -218,8 +295,9 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`id`, `id_user`, `id_forecast`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 1, 1, '2024-05-03 16:11:09', 1, '2024-05-03 16:11:09', 1),
-(2, 2, 1, '2024-05-03 16:11:09', 1, '2024-05-03 16:11:09', 1);
+(1, 4, 1, '2024-05-17 15:32:52', 2, '2024-05-17 15:32:52', 2),
+(2, 5, 1, '2024-05-17 15:32:52', 2, '2024-05-17 15:32:52', 2),
+(3, 4, 2, '2024-05-17 15:34:03', 2, '2024-05-17 15:34:03', 2);
 
 -- --------------------------------------------------------
 
@@ -241,7 +319,7 @@ CREATE TABLE `technology` (
 --
 
 INSERT INTO `technology` (`id`, `label`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 'VINNYL', '2024-04-29 15:29:26', 2, '2024-04-29 15:29:26', 2);
+(1, 'Toast', '2024-05-16 23:17:18', 2, '2024-05-17 00:33:58', 2);
 
 -- --------------------------------------------------------
 
@@ -274,7 +352,8 @@ INSERT INTO `user` (`id`, `name`, `email`, `jenis_kelamin`, `username`, `passwor
 (1, 'Zyarga', 'zyargacode@gmail.com', 0, 'zyarga', '202cb962ac59075b964b07152d234b70', '081384215205', 1, 'default.png', 0, '2024-04-29 10:01:11', 1, '2024-04-29 10:01:11', 1),
 (2, 'Hamid', 'hamid@gmail.com', 0, 'hamid', '202cb962ac59075b964b07152d234b70', '21312321', 2, 'default.png', 1, '2024-04-29 10:43:43', 1, '2024-04-29 10:43:43', 1),
 (3, 'Marketing', 'marketing@gmail.com', 0, 'marketing', '202cb962ac59075b964b07152d234b70', '12321', 3, 'default.png', 0, '2024-05-02 15:27:26', 2, '2024-05-02 15:27:26', 2),
-(4, 'PPIC', 'ppic@gmail.com', 0, 'ppic', '202cb962ac59075b964b07152d234b70', '123', 4, 'default.png', 0, '2024-05-02 15:28:18', 2, '2024-05-02 15:28:18', 2);
+(4, 'PPIC', 'ppic@gmail.com', 0, 'ppic', '202cb962ac59075b964b07152d234b70', '123', 4, 'default.png', 0, '2024-05-02 15:28:18', 2, '2024-05-02 15:28:18', 2),
+(5, 'PPIC 2', 'ppic2@gmail.com', 0, 'ppic2', '202cb962ac59075b964b07152d234b70', '21312321', 4, 'default.png', 1, '2024-05-08 10:24:24', 1, '2024-05-08 10:24:24', 1);
 
 --
 -- Indexes for dumped tables
@@ -284,6 +363,12 @@ INSERT INTO `user` (`id`, `name`, `email`, `jenis_kelamin`, `username`, `passwor
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `countries`
+--
+ALTER TABLE `countries`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -314,6 +399,18 @@ ALTER TABLE `product`
 -- Indexes for table `qc`
 --
 ALTER TABLE `qc`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rawmaterial`
+--
+ALTER TABLE `rawmaterial`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `rawmat_category`
+--
+ALTER TABLE `rawmat_category`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -348,6 +445,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `countries`
+--
+ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
@@ -360,25 +463,37 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `forecast`
 --
 ALTER TABLE `forecast`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `qc`
 --
 ALTER TABLE `qc`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `rawmaterial`
+--
+ALTER TABLE `rawmaterial`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `rawmat_category`
+--
+ALTER TABLE `rawmat_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -390,7 +505,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `technology`
@@ -402,7 +517,7 @@ ALTER TABLE `technology`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

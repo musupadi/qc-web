@@ -13,16 +13,16 @@
       <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-aqua">
+          <div class="small-box bg-green">
             <div class="inner">
-              <h3>0</h3>
+              <h3><?php echo $total_products; ?></h3>
 
-              <p>All Items</p>
+              <p>All Items Inputed</p>
             </div>
             <div class="icon">
               <i class="ion ion-cube"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer">-</a>
           </div>
         </div>
         <!-- ./col -->
@@ -30,47 +30,47 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>0</h3>
+              <h3> <?php echo $total_load_products; ?></h3>
 
-              <p>Transaction In & Out</p>
+              <p>Total Loaded Product</p>
+            </div>
+            <div class="icon">
+              <i class="ion-ios-box"></i>
+            </div>
+            <a href="#" class="small-box-footer">-</a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3><?php echo number_format($average_accuracy, 2); ?>% </h3>
+
+              <p>Average Accuracy In 1 Year</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer"> - </a>
           </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-yellow">
+          <div class="small-box bg-green">
             <div class="inner">
-              <h3>0</h3>
+              <h3><?php echo $total_users; ?></h3>
 
-              <p>Transaction In</p>
+              <p>Total Active Users</p>
             </div>
             <div class="icon">
-              <i class="fa fa-sign-in"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3>0</h3>
-
-              <p>Transaction Out</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-sign-out"></i>
+              <i class="ion-android-people"></i>
             </div>
             <?php if ( $user[0]->id_role == 1 || $user[0]->id_role == 2 ) { ?>
-              <a href="<?= base_url('home/historyTransaction') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?= base_url('home/historyTransaction') ?>" class="small-box-footer"> - </a>
             <?php } else { ?>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer"> - </a>
             <?php } ?>
           </div>
         </div>

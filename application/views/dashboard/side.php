@@ -24,46 +24,68 @@
       <?php else : ?>
         <li><a href="<?php echo base_url("Home")?>"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
       <?php endif ?>
+
+      <?php if ( $data->id_role == 1 || $data->id_role == 2 || $data->id_role == 4) : ?>
+            <?php if ($title == "Income Product (Raw Material") : ?>
+              <li class="active"><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Incoming Raw Material</span></a></li>
+            <?php else : ?>
+              <li><a href="<?php echo base_url("IncomingRawMaterial")?>"><i class="fa fa-exchange"></i> <span>Incoming Raw Material</span></a></li>
+            <?php endif ?>
+          <?php endif ?>
         
         <?php if ( $data->id_role == 1 || $data->id_role == 2 || $data->id_role == 4) : ?>
             <?php if ($title == "QC") : ?>
-              <li class="active"><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Checking Result</span></a></li>
+              <li class="active"><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Loading Product</span></a></li>
             <?php else : ?>
-              <li><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Checking Result</span></a></li>
+              <li><a href="<?php echo base_url("Qc")?>"><i class="fa fa-exchange"></i> <span>Loading Product</span></a></li>
             <?php endif ?>
-          
-        <?php endif ?>
-        <?php if ( $data->id_role == 1 || $data->id_role == 2) : ?>
-          <?php if ($title == "Product" || $title == "Category" || $title == "Technology") : ?>
-            <li class="treeview active">
-          <?php else : ?>
-            <li class="treeview">
           <?php endif ?>
-            <a href="#">
-              <i class="fa fa-briefcase"></i> <span>Product Master</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <?php if ($title == "Product") : ?>
-                <li class="active"><a href="<?php echo base_url('Product')?>"><i class="fa fa-cube"></i>Product</a></li>
-              <?php else : ?>
-                <li><a href="<?php echo base_url('Product')?>"><i class="fa fa-cube"></i>Product</a></li>
-              <?php endif ?>
-              <?php if ($title == "Category") : ?>
-                <li class="active"><a href="<?php echo base_url('Product/Category')?>"><i class="fa fa-home"></i>Category</a></li>
-              <?php else : ?>
-                <li><a href="<?php echo base_url('Product/Category')?>"><i class="fa fa-home"></i>Category</a></li>
-              <?php endif ?>
-              <?php if ($title == "Technology") : ?>
-                <li class ="active"><a href="<?php echo base_url('Product/Technology')?>"><i class="fa fa-home"></i>Technology</a></li>
-              <?php else : ?>
-                <li><a href="<?php echo base_url('Product/Technology')?>"><i class="fa fa-home"></i>Technology</a></li>
-              <?php endif ?>
-            </ul>
-          </li>
-        <?php endif ?>
+
+        <?php if ($data->id_role == 1 || $data->id_role == 2) : ?>
+  <?php if ($title == "Product" || $title == "Category" || $title == "Technology") : ?>
+    <li class="treeview active">
+  <?php else : ?>
+    <li class="treeview">
+  <?php endif; ?>
+    <a href="#">
+      <i class="fa fa-briefcase"></i> <span>Product Master</span>
+      <span class="pull-right-container">
+        <i class="fa fa-angle-left pull-right"></i>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-check-circle"></i> <span>Raw Material</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li <?php echo ($title == "Raw Material") ? 'class="active"' : ''; ?>>
+              <a href="<?php echo base_url('Product/RawMaterial')?>"><i class="fa fa-cubes"></i>Raw Material</a></li>
+          <li <?php echo ($title == "Category") ? 'class="active"' : ''; ?>>
+              <a href="<?php echo base_url('Product/RawMaterialCategory')?>"><i class="fa fa-tags"></i>Category</a></li>
+          <li <?php echo ($title == "Country") ? 'class="active"' : ''; ?>>
+              <a href="<?php echo base_url('Product/RawMaterialCountries')?>"><i class="fa fa-globe"></i>Country</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-check-circle"></i> <span>Finish Good</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li <?php echo ($title == "Product") ? 'class="active"' : ''; ?>><a href="<?php echo base_url('Product')?>"><i class="fa fa-cube"></i>Product</a></li>
+          <li <?php echo ($title == "Category") ? 'class="active"' : ''; ?>><a href="<?php echo base_url('Product/Category')?>"><i class="fa fa-home"></i>Category</a></li>
+          <li <?php echo ($title == "Technology") ? 'class="active"' : ''; ?>><a href="<?php echo base_url('Product/Technology')?>"><i class="fa fa-cogs"></i>Technology</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+<?php endif; ?>
         <?php if ( $data->id_role == 1 || $data->id_role == 2) : ?>
           <?php if ($title == "User" || $title == "Role") : ?>
             <li class="treeview active">
