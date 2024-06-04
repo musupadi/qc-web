@@ -76,7 +76,7 @@ class Models extends CI_Model {
         return $this->db->count_all_results();
     }
     public function Forecast(){
-        $this->db->select('a.id,a.label,a.forecast,a.date,a.stock,a.qty,
+        $this->db->select('a.id,a.label,a.forecast,a.date,
         b.label as name,
         c.label as product,c.code,c.color,c.series,c.code_category');
         $this->db->from('forecast a');
@@ -136,7 +136,7 @@ class Models extends CI_Model {
     public function GetAllRawMaterial(){
         $this->db->select('a.id, a.code, a.label, b.label as category, c.label as countries, a.created_at, a.created_by, a.updated_at, a.updated_by, b.label as category, c.label as country_name');
         $this->db->from('rawmaterial a');
-        $this->db->join('category b', 'a.id_category = b.id', 'left');
+        $this->db->join('rawmat_category b', 'a.id_rawmat_category = b.id', 'left');
         $this->db->join('countries c', 'a.id_countries = c.id', 'left');
         $data = $this->db->get()->result();
         return $data;

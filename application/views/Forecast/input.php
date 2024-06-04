@@ -35,16 +35,6 @@
                             <p class="text-red"><?php echo form_error('date'); ?></p>
                         </div>
                         <div class="form-group">
-                            <label for="stock"><span style="color: red; margin-right: 3px">*</span>Safety Stock</label>
-                            <input type="text" class="form-control" name="stock" placeholder="Safety Stock" required>
-                            <p class="text-red"><?php echo form_error('stock'); ?></p>
-                        </div>
-                        <div class="form-group">
-                            <label for="qty"><span style="color: red; margin-right: 3px">*</span>Qty</label>
-                            <input type="text" class="form-control" name="qty" placeholder="Qty" required>
-                            <p class="text-red"><?php echo form_error('qty'); ?></p>
-                        </div>
-                        <div class="form-group">
                             <label for="id_product"><span style="color: red; margin-right: 3px">*</span>Product</label>
                             <select id="id_product" name="id_product" class="select2" style="width: 100%;" required>
                                 <?php foreach ($product as $data) : ?>

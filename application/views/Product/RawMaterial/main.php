@@ -92,8 +92,8 @@
                                             <p class="text-red"><?= form_error('label') ?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="id_category"><span style="color: red; margin-right: 3px">*</span>Category</label>
-                                            <select class="form-control" name="id_category" required>
+                                            <label for="id_rawmat_category"><span style="color: red; margin-right: 3px">*</span>Category</label>
+                                            <select class="form-control" name="id_rawmat_category" required>
                                             <?php foreach ($rawmat_category as $category): ?>
                                                 <option value="<?= $category->id ?>"><?= $category->label ?></option>
                                              <?php endforeach; ?>

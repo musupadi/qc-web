@@ -39,7 +39,7 @@ class Product extends CI_Controller {
         return [
             ['field' => 'code', 'label' => 'Code', 'rules' => 'required'],
             ['field' => 'label', 'label' => 'Label', 'rules' => 'required'],
-            ['field' => 'id_category', 'label' => 'Category', 'rules' => 'required'],
+            ['field' => 'id_rawmat_category', 'label' => 'Category', 'rules' => 'required'],
             ['field' => 'id_country', 'label' => 'Country', 'rules' => 'required']
         ];
     }
@@ -85,7 +85,7 @@ class Product extends CI_Controller {
             $formData = array(
                 'code' => $this->input->post('code'),
                 'label' => $this->input->post('label'),
-                'id_category' => $this->input->post('id_category'),
+                'id_rawmat_category' => $this->input->post('id_rawmat_category'),
                 'id_countries' => $this->input->post('id_country'), // Correct field name for id_country
                 'created_by' => $ID[0]->id,
                 'updated_by' => $ID[0]->id

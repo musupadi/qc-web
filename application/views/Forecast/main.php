@@ -29,8 +29,6 @@
                   <th>Sales Representative</th>
                   <th>Forecast</th>
                   <th>Date</th>
-                  <th>Safety Stock</th>
-                  <th>Qty</th>
                   <th>Customer</th>
                 </tr>
                 </thead>
@@ -53,8 +51,6 @@
                   </td>
                   <th><?php echo $data->forecast?></th>
                   <th><?= date_format(date_create($data->date),"M")?></th>
-                  <th><?php echo $data->stock?></th>
-                  <th><?php echo $data->qty?></th>
                   <th><?php echo $data->name?></th>
                 </tr>
                 </tr>
@@ -68,8 +64,6 @@
                   <th>Sales Representative</th>
                   <th>Forecast</th>
                   <th>Date</th>
-                  <th>Safety Stock</th>
-                  <th>Qty</th>
                   <th>Customer</th>
                 </tr>
                 </tfoot>
@@ -110,11 +104,6 @@
                               <input type="text" class="form-control" name="load_number" id="load_number" placeholder="Load Number" required>
                               <p class="text-red"><?php echo form_error('load_number')?></p>
                             </div>
-                            <div class="form-group">
-                              <label for="text"><span style="color: red; margin-right: 3px">*</span>QTY (KG)</label>
-                              <input type="number" class="form-control" name="qty" id="qty" placeholder="Load Number" required>
-                              <p class="text-red"><?php echo form_error('load_number')?></p>
-                            </div>     
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
@@ -141,7 +130,6 @@
     console.log(id);
     document.getElementById('ids').value = id;
     document.getElementById('names').value = name;
-    document.getElementById('qtys').value = qty;
     document.getElementById('ItemNames').value = ItemName;
   }
 </script>

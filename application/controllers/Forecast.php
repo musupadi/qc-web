@@ -22,8 +22,6 @@ class Forecast extends CI_Controller {
             ['field' => 'label','label' => 'label','rules' => 'required'],
             ['field' => 'forecast','label' => 'forecast','rules' => 'required'],
             ['field' => 'date','label' => 'date','rules' => 'required'],
-            ['field' => 'qty','label' => 'qty','rules' => 'required'],
-            ['field' => 'stock','label' => 'stock','rules' => 'required'],
         ];
     }
 
@@ -63,8 +61,6 @@ class Forecast extends CI_Controller {
             $data['label'] = $this->input->post('label');
             $data['forecast'] = $this->input->post('forecast');
             $data['date'] = $this->input->post('date');
-            $data['stock'] = $this->input->post('stock');
-            $data['qty '] = $this->input->post('qty');
             $data['id_customer'] = $this->input->post("id_customer");
             $data['created_by'] = $id[0]->id;
             $data['updated_by'] = $id[0]->id;
