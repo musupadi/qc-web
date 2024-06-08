@@ -133,6 +133,16 @@ class Models extends CI_Model {
         $data = $this->db->get()->result();
         return $data;
     }
+    public function GetAllIncoming(){
+        $this->db->select('a.id, a.code, a.label, b.label as category, c.label as countries, a.created_at, a.created_by, a.updated_by, b.label as category, c.label as country_name,d.mfg_date,d.exp_date,d.qty,d.updated_at');
+        $this->db->from('incoming_raw d');
+        $this->db->join('rawmaterial a', 'd.id_product = a.id', 'left');
+        $this->db->join('rawmat_category b', 'a.id_rawmat_category = b.id', 'left');
+        $this->db->join('countries c', 'a.id_countries = c.id', 'left');
+       
+        $data = $this->db->get()->result();
+        return $data;
+    }
     public function GetAllRawMaterial(){
         $this->db->select('a.id, a.code, a.label, b.label as category, c.label as countries, a.created_at, a.created_by, a.updated_at, a.updated_by, b.label as category, c.label as country_name');
         $this->db->from('rawmaterial a');

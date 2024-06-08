@@ -14,12 +14,8 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Raw Material</h3>
+                    <h3 class="box-title">Input Raw Material</h3>
                 </div>
-                <!-- /.box-header -->
-                <a data-toggle="modal" data-target="#modal-add" class="btn btn-success btn-sm" style="width: 120px; margin-left: 10px">
-                    <i class="fa fa-fw fa-plus"></i>Add Raw Material
-                </a>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <table id="example1" class="table table-bordered table-striped">
@@ -43,12 +39,9 @@
                                 <td><?= $data->category ?></td>
                                 <td><?= $data->countries ?></td>
                                 <td style="text-align: center;">
-                                    <a data-toggle="modal" data-target="#modal-edit" onclick='InputData("<?= $data->id ?>", "<?= $data->label ?>")'>
-                                        <i class="fa fa-fw fa-pencil"></i>
-                                    </a> 
-                                    <a href="<?= base_url('Product/DeleteCategory/'.$data->id) ?>" onclick="return confirm('Are you sure you want to delete this item?');">
-                                        <i class="fa fa-fw fa-trash"></i>
-                                    </a>
+                                <a data-toggle="modal" data-target="#modal-add" class="btn btn-success btn-sm" onclick='InputData("<?= $data->id ?>", "<?= $data->label ?>", "<?= $data->code ?>")'>
+                                    <i class="fa fa-fw fa-plus"></i>
+                                </a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -70,7 +63,7 @@
 
                 <!-- Add Raw Material Modal -->
                 <div class="modal modal-success fade" id="modal-add">
-                    <?= form_open_multipart('Product/AddRawMaterial/') ?>
+                    <?= form_open_multipart('IncomingRawMaterial/add') ?>
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -83,32 +76,29 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label for="code"><span style="color: red; margin-right: 3px">*</span>Code</label>
-                                            <input type="text" class="form-control" name="code" placeholder="Material Code" required>
+                                            <input type="text" class="form-control" name="code" id="code" placeholder="Code" required disabled>
                                             <p class="text-red"><?= form_error('code') ?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="label"><span style="color: red; margin-right: 3px">*</span>Name</label>
-                                            <input type="text" class="form-control" name="label" placeholder="Raw Material Label" required>
-                                            <p class="text-red"><?= form_error('label') ?></p>
+                                            <label for="name"><span style="color: red; margin-right: 3px">*</span>Raw Material Name</label>
+                                            <input type="hidden" class="form-control" name="id" id="id" placeholder="Name" required>
+                                            <input type="text" class="form-control" name="name" id="name" placeholder="Name" required disabled>
+                                            <p class="text-red"><?= form_error('name') ?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="id_rawmat_category"><span style="color: red; margin-right: 3px">*</span>Category</label>
-                                            <select class="form-control" name="id_rawmat_category" required>
-                                            <?php foreach ($rawmat_category as $category): ?>
-                                                <option value="<?= $category->id ?>"><?= $category->label ?></option>
-                                             <?php endforeach; ?>
-                                                <!-- Populate categories here -->
-                                            </select>
-                                            <p class="text-red"><?= form_error('category') ?></p>
+                                            <label for="quantity"><span style="color: red; margin-right: 3px">*</span>Quantity</label>
+                                            <input type="number" class="form-control" name="quantity" placeholder="Quantity" required>
+                                            <p class="text-red"><?= form_error('quantity') ?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="id_country"><span style="color: red; margin-right: 3px">*</span>Country</label>
-                                            <select class="form-control" name="id_country" required>
-                                            <?php foreach ($countries as $countries): ?>
-                                                <option value="<?= $countries->id ?>"><?= $countries->label ?></option>
-                                             <?php endforeach; ?>
-                                            </select>
-                                            <p class="text-red"><?= form_error('countries') ?></p>
+                                            <label for="mfg_date"><span style="color: red; margin-right: 3px">*</span>MFG Date</label>
+                                            <input type="date" class="form-control" name="mfg_date" placeholder="MFG Date" required>
+                                            <p class="text-red"><?= form_error('mfg_date') ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exp_date"><span style="color: red; margin-right: 3px">*</span>Exp Date</label>
+                                            <input type="date" class="form-control" name="exp_date" placeholder="Exp Date" required>
+                                            <p class="text-red"><?= form_error('exp_date') ?></p>
                                         </div>
                                     </div>
                                 </div>
@@ -131,8 +121,11 @@
 <!-- /.content -->
 
 <script>
-function InputData(id, name) {
-    document.getElementById('id').value = id;
+function InputData(id, name,code) {
     document.getElementById('name').value = name;
+    // Assuming there's a hidden input field for id
+    // <input type="hidden" id="id" name="id">
+    document.getElementById('id').value = id;
+    document.getElementById('code').value = code;
 }
 </script>

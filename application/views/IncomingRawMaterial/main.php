@@ -17,50 +17,114 @@
               <h3 class="box-title">Incoming Raw Material </h3>
             </div>
             <!-- /.box-header -->
-            <a href="<?php echo base_url('Qc/Addqc')?>" class="btn btn-success btn-sm" style="margin-left: 10px"><i class="fa fa-fw fa-plus"></i>Input Product</a>
+            <a href="<?php echo base_url("IncomingRawMaterial/Adding")?>" class="btn btn-success btn-sm" style="width: 200px; margin-left: 10px">
+                    <i class="fa fa-fw fa-plus"></i>Add Incoming Raw Material
+            </a>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>No</th>
-                  <th>Production Date</th>
-                  <th>Production Code</th>
-                  <th>Product Name</th>
-                  <th>LN</th>
-                  <th>Qty (kg)</th>
+                  <th>Incoming Date</th>
+                  <th>Raw Material Code</th>
+                  <th>Type Category</th>
+                  <th>Name</th>
+                  <th>Quantity (kg)</th>
+                  <th>MFG Date</th>
+                  <th>EXP Date</th>
+                  <th style="width:30px">Add Quantity</th>
                 </tr>
                 </thead>
                 <tbody>
                   <?php $i = 1; ?>
                 <?php
-                foreach ($Logs as $data){
+                foreach ($rawmaterial as $data){
 
                 ?>
                 <tr>
                   <td><?php echo $i++?></td>
-                  <td><?php echo date('d-F-Y', strtotime($data->production_date)); ?></td>
+                  <td><?php echo date('d-F-Y', strtotime($data->updated_at)); ?></td>
                   <td><?php echo $data->code?></td>
+                  <td><?php echo $data->category?></td>
                   <td><?php echo $data->label?></td>
-                  <td><?php echo $data->load_number?></td>
                   <td><?php echo $data->qty?></td>
+                  <td><?php echo date('d-F-Y', strtotime($data->mfg_date)); ?></td>  
+                  <td><?php echo date('d-F-Y', strtotime($data->exp_date)); ?></td>
+                  <td><a href="<?php echo base_url('Qc/Addqc')?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-plus"></a></td>
                 </tr>
                 <?php  } ?>
                 </tbody>
                 <tfoot>
                 <tr>
                   <th>No</th>
-                  <th>Production Date</th>
-                  <th>Production Code</th>
-                  <th>Product Name</th>
-                  <th>LN</th>
-                  <th>Qty (kg)</th>
+                  <th>Incoming Date</th>
+                  <th>Raw Material Code</th>
+                  <th>Type Category</th>
+                  <th>Name</th>
+                  <th>Quantity (kg)</th>
+                  <th>MFG Date</th>
+                  <th>EXP Date</th>
+                  <th>Add Quantity</th>
                 </tr>
                 </tfoot>
               </table>
             </div>
             <?php echo $this->session->flashdata('pesan');?>
             <!-- /.box-body -->
+             <!-- Add Raw Material Modal -->
+             <div class="modal modal-success fade" id="modal-add">
+                    <?= form_open_multipart('Product/AddRawMaterial/') ?>
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">Add Incoming Raw Material</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="code"><span style="color: red; margin-right: 3px">*</span>Code</label>
+                                            <input type="text" class="form-control" name="code" placeholder="Material Code" required>
+                                            <p class="text-red"><?= form_error('code') ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="label"><span style="color: red; margin-right: 3px">*</span>Name</label>
+                                            <input type="text" class="form-control" name="label" placeholder="Raw Material Label" required>
+                                            <p class="text-red"><?= form_error('label') ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_rawmat_category"><span style="color: red; margin-right: 3px">*</span>Category</label>
+                                            <select class="form-control" name="id_rawmat_category" required>
+                                            <?php foreach ($rawmat_category as $category): ?>
+                                                <option value="<?= $category->id ?>"><?= $category->label ?></option>
+                                             <?php endforeach; ?>
+                                                <!-- Populate categories here -->
+                                            </select>
+                                            <p class="text-red"><?= form_error('category') ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_country"><span style="color: red; margin-right: 3px">*</span>Country</label>
+                                            <select class="form-control" name="id_country" required>
+                                            <?php foreach ($countries as $countries): ?>
+                                                <option value="<?= $countries->id ?>"><?= $countries->label ?></option>
+                                             <?php endforeach; ?>
+                                            </select>
+                                            <p class="text-red"><?= form_error('countries') ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-outline">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?= form_close() ?>
+                </div>
+                <!-- /.modal -->
             <!-- INPUT -->
             <div class="modal modal-success fade" id="modal-success">
             <?php echo form_open_multipart('Qc/Add')?>

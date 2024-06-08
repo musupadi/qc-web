@@ -22,49 +22,58 @@ class IncomingRawMaterial extends CI_Controller {
     }
 
     public function index(){
-        $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
-        $data['rawmaterial'] = $this->Models->getAll('rawmaterial');
-        $data['categories'] = $this->Models->getAll('rawmat_category');
-        $data['countries'] = $this->Models->getAll('countries');
+        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+        $data['rawmaterial'] = $this->Models->GetAllIncoming();
+        $data['rawmat_category'] = $this->Models->GetAllRawMaterialCategory();
+        $data['countries'] = $this->Models->GetAllRawMaterialCountries();
         $data['title'] = 'Incoming Raw Material';
         $this->load->view('dashboard/header', $data);
         $this->load->view('dashboard/side', $data);
         $this->load->view('IncomingRawMaterial/main', $data);  // Ensure this view is created
         $this->load->view('dashboard/footer');
     }
+    public function Adding(){
+        $data['user'] = $this->Models->getID('user','username',$this->session->userdata('nama'));
+        $data['rawmaterial'] = $this->Models->GetAllRawMaterial();
+        $data['rawmat_category'] = $this->Models->GetAllRawMaterialCategory();
+        $data['countries'] = $this->Models->GetAllRawMaterialCountries();
 
+        // Set the page title
+        $data['title'] = 'Raw Material';
+        
+ 
+        // Load the view with data
+        $this->load->view('dashboard/header', $data);
+        $this->load->view('dashboard/side',$data);
+        $this->load->view('IncomingRawMaterial/add', $data);
+        $this->load->view('dashboard/footer');
+    }
     public function Add(){
-        $this->form_validation->set_rules($this->rulesRawMaterial());
-        if($this->form_validation->run() === FALSE){
-            $data['user'] = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
-            $data['categories'] = $this->Models->getAll('rawmat_category');
-            $data['countries'] = $this->Models->getAll('countries');
-            $data['title'] = 'Add Raw Material';
-            $this->load->view('dashboard/header', $data);
-            $this->load->view('dashboard/side', $data);
-            $this->load->view('rawmaterial/Add', $data);  // Ensure this view is created
-            $this->load->view('dashboard/footer');
-            $this->session->set_flashdata('pesan', '<script>alert("Data Gagal disimpan")</script>');
-        } else {
-            $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
-            $data = [
-                'code' => $this->input->post('code'),
-                'label' => $this->input->post('label'),
-                'id_rawmat_category' => $this->input->post('id_rawmat_category'),
-                'id_countries' => $this->input->post('id_countries'),
-                'created_by' => $ID[0]->id,
-                'updated_by' => $ID[0]->id
-            ];
-            $this->Models->insert('rawmaterial', $data);
-
-            $logs['action'] = "Added Raw Material " . $this->input->post('label');
-            $logs['created_by'] = $ID[0]->id;
-            $logs['updated_by'] = $ID[0]->id;
-            $this->Models->insert('logs', $logs);
-
-            $this->session->set_flashdata('pesan', '<script>alert("Data berhasil disimpan")</script>');
-            redirect(base_url('IncomingRawMaterial'));
+        $IDS = $this->Models->getID('user', 'username',$this->session->userdata('nama'));
+        $qty = $this->input->post('quantity');
+        $ID = $this->Models->getID('rawmaterial', 'id', $id);
+        $qts=0;
+        if($ID->quantity){
+            $qts = $ID->quantity;
         }
+        $QTY = $qts + $qty;
+        $data = [
+            'id_product' => $this->input->post('id'),
+            'qty' => $QTY,
+            'mfg_date' => $this->input->post('mfg_date'),
+            'exp_date' => $this->input->post('exp_date'),    
+            'created_by' => $IDS[0]->id,
+            'updated_by' => $IDS[0]->id
+        ];
+        $this->Models->insert('incoming_raw', $data);
+
+        $logs['action'] = "Input Raw Material " . $this->input->post('label')." Quantity = ".$this->input->post('quantity')." Menjadi ".$QTY;
+        $logs['created_by'] = $IDS[0]->id;
+        $logs['updated_by'] = $IDS[0]->id;
+        $this->Models->insert('logs', $logs);
+
+        $this->session->set_flashdata('pesan', '<script>alert("Data berhasil Ditambahkan")</script>');
+        redirect(base_url('IncomingRawMaterial'));
     }
 
     public function Edit($id){
