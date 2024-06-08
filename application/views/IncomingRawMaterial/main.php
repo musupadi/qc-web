@@ -33,7 +33,7 @@
                   <th>Quantity (kg)</th>
                   <th>MFG Date</th>
                   <th>EXP Date</th>
-                  <th style="width:30px">Add Quantity</th>
+                  <th style="width:30px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,7 +51,14 @@
                   <td><?php echo $data->qty?></td>
                   <td><?php echo date('d-F-Y', strtotime($data->mfg_date)); ?></td>  
                   <td><?php echo date('d-F-Y', strtotime($data->exp_date)); ?></td>
-                  <td><a href="<?php echo base_url('Qc/Addqc')?>" class="btn btn-success btn-sm"><i class="fa fa-fw fa-plus"></a></td>
+                  
+                  <td style="text-align: center;">
+                        
+                                    <a href="<?= base_url('Product/DeleteCategory/'.$data->id) ?>" onclick="return confirm('Are you sure you want to delete this item?');">
+                                        <i class="fa fa-fw fa-trash"></i>
+                                    </a>
+                                </td>
+                
                 </tr>
                 <?php  } ?>
                 </tbody>
@@ -65,7 +72,7 @@
                   <th>Quantity (kg)</th>
                   <th>MFG Date</th>
                   <th>EXP Date</th>
-                  <th>Add Quantity</th>
+                  <th>Action</th>
                 </tr>
                 </tfoot>
               </table>

@@ -49,30 +49,57 @@ class IncomingRawMaterial extends CI_Controller {
         $this->load->view('dashboard/footer');
     }
     public function Add(){
-        $IDS = $this->Models->getID('user', 'username',$this->session->userdata('nama'));
+        // Retrieve user ID based on session username
+        $IDS = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
+        
+        // Get the quantity from the POST request
         $qty = $this->input->post('quantity');
+        
+        // Retrieve the raw material ID
+        $id = $this->input->post('id'); // Assuming 'id' is passed in the POST request
         $ID = $this->Models->getID('rawmaterial', 'id', $id);
-        $qts=0;
-        if($ID->quantity){
+        
+        // Initialize the quantity to 0 if not set
+        $qts = 0;
+        if ($ID->quantity) {
             $qts = $ID->quantity;
         }
+        
+        // Calculate the new quantity
         $QTY = $qts + $qty;
+        
+        // Convert manufacturing date to DateTime and add one year
+        $mfg_date = new DateTime($this->input->post('mfg_date'));
+        $exp_date = clone $mfg_date; // Clone to avoid modifying the original date
+        $exp_date->modify('+1 year');
+        
+        // Prepare data for insertion
         $data = [
-            'id_product' => $this->input->post('id'),
+            'id_product' => $id,
             'qty' => $QTY,
-            'mfg_date' => $this->input->post('mfg_date'),
-            'exp_date' => $this->input->post('exp_date'),    
+            'mfg_date' => $mfg_date->format('Y-m-d'), // Format date to string
+            'exp_date' => $exp_date->format('Y-m-d'), // Format date to string
             'created_by' => $IDS[0]->id,
             'updated_by' => $IDS[0]->id
         ];
+        
+        // Insert data into 'incoming_raw' table
         $this->Models->insert('incoming_raw', $data);
-
-        $logs['action'] = "Input Raw Material " . $this->input->post('label')." Quantity = ".$this->input->post('quantity')." Menjadi ".$QTY;
-        $logs['created_by'] = $IDS[0]->id;
-        $logs['updated_by'] = $IDS[0]->id;
+        
+        // Prepare log data
+        $logs = [
+            'action' => "Input Raw Material " . $this->input->post('label') . " Quantity = " . $qty . " Menjadi " . $QTY,
+            'created_by' => $IDS[0]->id,
+            'updated_by' => $IDS[0]->id
+        ];
+        
+        // Insert log data into 'logs' table
         $this->Models->insert('logs', $logs);
-
+        
+        // Set flash data message
         $this->session->set_flashdata('pesan', '<script>alert("Data berhasil Ditambahkan")</script>');
+        
+        // Redirect to the IncomingRawMaterial page
         redirect(base_url('IncomingRawMaterial'));
     }
 

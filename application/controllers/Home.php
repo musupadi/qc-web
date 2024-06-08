@@ -64,6 +64,21 @@ class Home extends CI_Controller {
             $production = (int)$this->Models->SumDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date","qty","","")->qty;   
             $data['production'][$i-1] = (int)$production;
         
+            $incoming = (int)$this->Models->SumDatetoDate("incoming_raw","2024-".$i."-01","2024-".$i."-31","mfg_date","qty","","")->qty;   
+            $exp = (int)$this->Models->SumDatetoDate("incoming_raw","2024-".$i."-01","2024-".$i."-31","exp_date","qty","","")->qty;   
+            
+            if($incoming==null){
+                $data['incoming'][$i-1] = 0;
+            }else{
+                $data['incoming'][$i-1] = (int)$incoming;
+            }
+            if($exp==null){
+                $data['exp'][$i-1] = 0;
+            }else{
+                $data['exp'][$i-1] = (int)$exp;
+            }
+            
+
             if((int)$forecast!=0){
                     if((int)$production!=0){
                     if($forecast>=$production){
@@ -93,6 +108,8 @@ class Home extends CI_Controller {
                 $data['accuracy'][$i-1] = 0;
                 $data['hit'][$i-1] = 0;
             }
+
+     
             $total_accuracy += $data['accuracy'][$i - 1];
             $average_accuracy = $total_accuracy / 12;
             $data['average_accuracy'] = $average_accuracy;

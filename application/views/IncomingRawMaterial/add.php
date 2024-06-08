@@ -95,11 +95,6 @@
                                             <input type="date" class="form-control" name="mfg_date" placeholder="MFG Date" required>
                                             <p class="text-red"><?= form_error('mfg_date') ?></p>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exp_date"><span style="color: red; margin-right: 3px">*</span>Exp Date</label>
-                                            <input type="date" class="form-control" name="exp_date" placeholder="Exp Date" required>
-                                            <p class="text-red"><?= form_error('exp_date') ?></p>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
