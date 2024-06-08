@@ -52,6 +52,7 @@ class IncomingRawMaterial extends CI_Controller {
         // Retrieve user ID based on session username
         $IDS = $this->Models->getID('user', 'username', $this->session->userdata('nama'));
         
+
         // Get the quantity from the POST request
         $qty = $this->input->post('quantity');
         
@@ -71,7 +72,8 @@ class IncomingRawMaterial extends CI_Controller {
         // Convert manufacturing date to DateTime and add one year
         $mfg_date = new DateTime($this->input->post('mfg_date'));
         $exp_date = clone $mfg_date; // Clone to avoid modifying the original date
-        $exp_date->modify('+1 year');
+        $exps =  $this->input->post('exp');
+        $exp_date->modify('+'.$exps.' year');
         
         // Prepare data for insertion
         $data = [

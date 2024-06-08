@@ -95,6 +95,11 @@
                                             <input type="date" class="form-control" name="mfg_date" placeholder="MFG Date" required>
                                             <p class="text-red"><?= form_error('mfg_date') ?></p>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="quantity"><span style="color: red; margin-right: 3px">*</span>Expired Time (Year)</label>
+                                            <input type="number" class="form-control" name="exp" placeholder="Expired Time" required>
+                                            <p class="text-red"><?= form_error('quantity') ?></p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
