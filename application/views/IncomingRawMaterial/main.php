@@ -54,7 +54,7 @@
                   
                   <td style="text-align: center;">
                         
-                                    <a href="<?= base_url('Product/DeleteCategory/'.$data->id) ?>" onclick="return confirm('Are you sure you want to delete this item?');">
+                                    <a href="<?= base_url('IncomingRawMaterial'.$data->id) ?>" onclick="return confirm('Are you sure you want to delete this item?');">
                                         <i class="fa fa-fw fa-trash"></i>
                                     </a>
                                 </td>

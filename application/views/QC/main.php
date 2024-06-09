@@ -25,9 +25,9 @@
                 <tr>
                   <th>No</th>
                   <th>Production Date</th>
-                  <th>Production Code</th>
+                  <th>Item Code</th>
                   <th>Product Name</th>
-                  <th>LN</th>
+                  <th>Load Number</th>
                   <th>Qty (kg)</th>
                 </tr>
                 </thead>
@@ -51,9 +51,9 @@
                 <tr>
                   <th>No</th>
                   <th>Production Date</th>
-                  <th>Production Code</th>
+                  <th>Item Code</th>
                   <th>Product Name</th>
-                  <th>LN</th>
+                  <th>Load Number</th>
                   <th>Qty (kg)</th>
                 </tr>
                 </tfoot>

@@ -16,12 +16,12 @@
       <div class="small-box bg-green">
         <div class="inner">
           <h3><?php echo $total_products; ?></h3>
-          <p>All Items Inputed</p>
+          <p>All Product Inputed</p>
         </div>
         <div class="icon">
           <i class="ion ion-cube"></i>
         </div>
-        <a href="#" class="small-box-footer">-</a>
+        <a href="product" class="small-box-footer">-</a>
       </div>
     </div>
     <!-- ./col -->
@@ -35,7 +35,7 @@
         <div class="icon">
           <i class="ion-ios-box"></i>
         </div>
-        <a href="#" class="small-box-footer">-</a>
+        <a href="qc" class="small-box-footer">-</a>
       </div>
     </div>
     <!-- ./col -->
@@ -64,7 +64,7 @@
           <i class="ion-android-people"></i>
         </div>
         <?php if ($user[0]->id_role == 1 || $user[0]->id_role == 2) { ?>
-          <a href="<?= base_url('home/historyTransaction') ?>" class="small-box-footer"> - </a>
+          <a href="<?= base_url('user') ?>" class="small-box-footer"> - </a>
         <?php } else { ?>
           <a href="#" class="small-box-footer"> - </a>
         <?php } ?>

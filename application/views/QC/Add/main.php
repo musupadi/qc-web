@@ -135,7 +135,7 @@
                   <p class="text-red"><?php echo form_error('label'); ?></p>
                 </div>
                 <div class="form-group">
-                  <label for="load_number">LN</label>
+                  <label for="load_number">Load Number</label>
                   <input type="text" class="form-control" name="load_number" placeholder="Load Number">
                   <p class="text-red"><?php echo form_error('load_number'); ?></p>
                 </div>
