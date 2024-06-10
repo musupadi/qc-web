@@ -78,6 +78,19 @@ class Home extends CI_Controller {
                 $data['exp'][$i-1] = (int)$exp;
             }
             
+            $incoming2 = (int)$this->Models->SumDatetoDate("incoming_raw","2025-".$i."-01","2025-".$i."-31","mfg_date","qty","","")->qty;   
+            $exp2 = (int)$this->Models->SumDatetoDate("incoming_raw","2025-".$i."-01","2025-".$i."-31","exp_date","qty","","")->qty;   
+            if($incoming==null){
+                $data['incoming2'][$i-1] = 0;
+            }else{
+                $data['incoming2'][$i-1] = (int)$incoming2;
+            }
+            if($exp2==null){
+                $data['exp2'][$i-1] = 0;
+            }else{
+                $data['exp2'][$i-1] = (int)$exp2;
+            }
+
 
             if((int)$forecast!=0){
                     if((int)$production!=0){
@@ -114,7 +127,6 @@ class Home extends CI_Controller {
             $average_accuracy = $total_accuracy / 12;
             $data['average_accuracy'] = $average_accuracy;
         }
-        
         $this->load->view('dashboard/header',$data);
         $this->load->view('dashboard/side',$data);
         $this->load->view('dashboard/main',$data);
