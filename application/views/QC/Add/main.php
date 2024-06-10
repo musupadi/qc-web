@@ -149,6 +149,11 @@
                   <input type="date" name="production_date" class="form-control" style="color: black;">
                   <p class="text-red"><?php echo form_error('production_date'); ?></p>
                 </div>
+                <div class="form-group">
+                  <label for="exp"><span style="color: red; margin-right: 3px">*</span>Expired (Year)</label>
+                  <input type="text" class="form-control" name="exp" placeholder="Expired Date" required>
+                  <p class="text-red"><?php echo form_error('exp'); ?></p>
+                </div>
               </div>
             </div>
             <div class="modal-footer">

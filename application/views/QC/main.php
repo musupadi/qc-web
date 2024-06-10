@@ -25,6 +25,7 @@
                 <tr>
                   <th>No</th>
                   <th>Production Date</th>
+                  <th>Expired Date</th>
                   <th>Item Code</th>
                   <th>Product Name</th>
                   <th>Load Number</th>
@@ -40,6 +41,7 @@
                 <tr>
                   <td><?php echo $i++?></td>
                   <td><?php echo date('d-F-Y', strtotime($data->production_date)); ?></td>
+                  <td><?php echo date('d-F-Y', strtotime($data->exp_date)); ?></td>
                   <td><?php echo $data->code?></td>
                   <td><?php echo $data->label?></td>
                   <td><?php echo $data->load_number?></td>
@@ -51,6 +53,7 @@
                 <tr>
                   <th>No</th>
                   <th>Production Date</th>
+                  <th>Expired Date</th>
                   <th>Item Code</th>
                   <th>Product Name</th>
                   <th>Load Number</th>

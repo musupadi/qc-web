@@ -59,10 +59,20 @@ class Qc extends CI_Controller {
         }else{          
             $ID = $this->Models->getID('user', 'username', $this->session->userdata('nama'));  
             $Product = $this->Models->getID('product','id',$this->input->post('id'));
+
+
+           // Convert manufacturing date to DateTime and add one year
+            $mfg_date = new DateTime($this->input->post('production_date'));
+            $exp_date = clone $mfg_date; // Clone to avoid modifying the original date
+            $exps =  $this->input->post('exp');
+            $exp_date->modify('+'.$exps.' year');
+
+
             $data2['id_product'] = $this->input->post('id_product');
             $data2['load_number'] = $this->input->post('load_number');
             $data2['qty'] = $this->input->post('qty');
             $data2['production_date'] = $this->input->post('production_date');
+            $data2['exp_date'] = $exp_date->format('Y-m-d');
             $data2['created_by'] = $ID[0]->id;
             $data2['updated_by'] = $ID[0]->id;
             $this->Models->insert('qc',$data2);

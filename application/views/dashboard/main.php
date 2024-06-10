@@ -65,11 +65,7 @@
           <i class="ion-android-people"></i>
         </div>
         <?php if ($user[0]->id_role == 1 || $user[0]->id_role == 2) { ?>
-<<<<<<< Updated upstream
-          <a href="<?= base_url('user') ?>" class="small-box-footer"> - </a>
-=======
           <a href="<?= base_url('home/historyTransaction') ?>" class="small-box-footer">-</a>
->>>>>>> Stashed changes
         <?php } else { ?>
           <a href="#" class="small-box-footer">-</a>
         <?php } ?>
@@ -95,6 +91,17 @@
       <div id="sales_chart_2" style="height: 500px;"></div>
     </div>
   </div>
+  <br>
+  <div class="row">
+    <div class="col-lg-6">
+      <!-- production chart 1 -->
+      <div id="production_chart_1" style="height: 500px;"></div>
+    </div>
+    <div class="col-lg-6">
+      <!-- production chart 2 -->
+      <div id="production_chart_2" style="height: 500px;"></div>
+    </div>
+  </div>
 </section>
 <!-- /.content -->
 
@@ -106,6 +113,8 @@
   google.charts.setOnLoadCallback(drawVisualization);
   google.charts.setOnLoadCallback(drawSalesChart1);
   google.charts.setOnLoadCallback(drawSalesChart2);
+  google.charts.setOnLoadCallback(drawProductionChart1);
+  google.charts.setOnLoadCallback(drawProductionChart2);
 
   function drawVisualization() {
     var data = new google.visualization.DataTable();
@@ -114,18 +123,18 @@
     data.addColumn('number', 'Forecast');
     data.addColumn('number', 'Accuracy');
     data.addRows([
-      ['Jan <?php echo $accuracy[0]; ?>%', <?php echo $production[0]; ?>, <?php echo $forecast[0]; ?>, <?php echo $hit[0]; ?>],
-      ['Feb <?php echo $accuracy[1]; ?>%', <?php echo $production[1]; ?>, <?php echo $forecast[1]; ?>, <?php echo $hit[1]; ?>],
-      ['Mar <?php echo $accuracy[2]; ?>%', <?php echo $production[2]; ?>, <?php echo $forecast[2]; ?>, <?php echo $hit[2]; ?>],
-      ['Apr <?php echo $accuracy[3]; ?>%', <?php echo $production[3]; ?>, <?php echo $forecast[3]; ?>, <?php echo $hit[3]; ?>],
-      ['May <?php echo $accuracy[4]; ?>%', <?php echo $production[4]; ?>, <?php echo $forecast[4]; ?>, <?php echo $hit[4]; ?>],
-      ['Jun <?php echo $accuracy[5]; ?>%', <?php echo $production[5]; ?>, <?php echo $forecast[5]; ?>, <?php echo $hit[5]; ?>],
-      ['Jul <?php echo $accuracy[6]; ?>%', <?php echo $production[6]; ?>, <?php echo $forecast[6]; ?>, <?php echo $hit[6]; ?>],
-      ['Aug <?php echo $accuracy[7]; ?>%', <?php echo $production[7]; ?>, <?php echo $forecast[7]; ?>, <?php echo $hit[7]; ?>],
-      ['Sep <?php echo $accuracy[8]; ?>%', <?php echo $production[8]; ?>, <?php echo $forecast[8]; ?>, <?php echo $hit[8]; ?>],
-      ['Oct <?php echo $accuracy[9]; ?>%', <?php echo $production[9]; ?>, <?php echo $forecast[9]; ?>, <?php echo $hit[9]; ?>],
-      ['Nov <?php echo $accuracy[10]; ?>%', <?php echo $production[10]; ?>, <?php echo $forecast[10]; ?>, <?php echo $hit[10]; ?>],
-      ['Dec <?php echo $accuracy[11]; ?>%', <?php echo $production[11]; ?>, <?php echo $forecast[11]; ?>, <?php echo $hit[11]; ?>]
+      ['Jan', <?php echo $production[0]; ?>, <?php echo $forecast[0]; ?>, <?php echo $hit[0]; ?>],
+      ['Feb', <?php echo $production[1]; ?>, <?php echo $forecast[1]; ?>, <?php echo $hit[1]; ?>],
+      ['Mar', <?php echo $production[2]; ?>, <?php echo $forecast[2]; ?>, <?php echo $hit[2]; ?>],
+      ['Apr', <?php echo $production[3]; ?>, <?php echo $forecast[3]; ?>, <?php echo $hit[3]; ?>],
+      ['May', <?php echo $production[4]; ?>, <?php echo $forecast[4]; ?>, <?php echo $hit[4]; ?>],
+      ['Jun', <?php echo $production[5]; ?>, <?php echo $forecast[5]; ?>, <?php echo $hit[5]; ?>],
+      ['Jul', <?php echo $production[6]; ?>, <?php echo $forecast[6]; ?>, <?php echo $hit[6]; ?>],
+      ['Aug', <?php echo $production[7]; ?>, <?php echo $forecast[7]; ?>, <?php echo $hit[7]; ?>],
+      ['Sep', <?php echo $production[8]; ?>, <?php echo $forecast[8]; ?>, <?php echo $hit[8]; ?>],
+      ['Oct', <?php echo $production[9]; ?>, <?php echo $forecast[9]; ?>, <?php echo $hit[9]; ?>],
+      ['Nov', <?php echo $production[10]; ?>, <?php echo $forecast[10]; ?>, <?php echo $hit[10]; ?>],
+      ['Dec', <?php echo $production[11]; ?>, <?php echo $forecast[11]; ?>, <?php echo $hit[11]; ?>]
     ]);
 
     var options = {
@@ -202,6 +211,68 @@
     };
 
     var chart = new google.visualization.ColumnChart(document.getElementById('sales_chart_2'));
+    chart.draw(data, options);
+  }
+
+  function drawProductionChart1() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Month');
+    data.addColumn('number', 'Incoming Production');
+    data.addColumn('number', 'Expired Production');
+    data.addRows([
+      ['Jan', <?php echo $production1[0]; ?>, <?php echo $prod_exp1[0]; ?>],
+      ['Feb', <?php echo $production1[1]; ?>, <?php echo $prod_exp1[1]; ?>],
+      ['Mar', <?php echo $production1[2]; ?>, <?php echo $prod_exp1[2]; ?>],
+      ['Apr', <?php echo $production1[3]; ?>, <?php echo $prod_exp1[3]; ?>],
+      ['May', <?php echo $production1[4]; ?>, <?php echo $prod_exp1[4]; ?>],
+      ['Jun', <?php echo $production1[5]; ?>, <?php echo $prod_exp1[5]; ?>],
+      ['Jul', <?php echo $production1[6]; ?>, <?php echo $prod_exp1[6]; ?>],
+      ['Aug', <?php echo $production1[7]; ?>, <?php echo $prod_exp1[7]; ?>],
+      ['Sep', <?php echo $production1[8]; ?>, <?php echo $prod_exp1[8]; ?>],
+      ['Oct', <?php echo $production1[9]; ?>, <?php echo $prod_exp1[9]; ?>],
+      ['Nov', <?php echo $production1[10]; ?>, <?php echo $prod_exp1[10]; ?>],
+      ['Dec', <?php echo $production1[11]; ?>, <?php echo $prod_exp1[11]; ?>]
+    ]);
+
+    var options = {
+      title: 'All Incoming Production 2024',
+      curveType: 'function',
+      seriesType: 'bars',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('production_chart_1'));
+    chart.draw(data, options);
+  }
+
+  function drawProductionChart2() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Month');
+    data.addColumn('number', 'Incoming Production');
+    data.addColumn('number', 'Expired Production');
+    data.addRows([
+      ['Jan', <?php echo $production2[0]; ?>, <?php echo $prod_exp2[0]; ?>],
+      ['Feb', <?php echo $production2[1]; ?>, <?php echo $prod_exp2[1]; ?>],
+      ['Mar', <?php echo $production2[2]; ?>, <?php echo $prod_exp2[2]; ?>],
+      ['Apr', <?php echo $production2[3]; ?>, <?php echo $prod_exp2[3]; ?>],
+      ['May', <?php echo $production2[4]; ?>, <?php echo $prod_exp2[4]; ?>],
+      ['Jun', <?php echo $production2[5]; ?>, <?php echo $prod_exp2[5]; ?>],
+      ['Jul', <?php echo $production2[6]; ?>, <?php echo $prod_exp2[6]; ?>],
+      ['Aug', <?php echo $production2[7]; ?>, <?php echo $prod_exp2[7]; ?>],
+      ['Sep', <?php echo $production2[8]; ?>, <?php echo $prod_exp2[8]; ?>],
+      ['Oct', <?php echo $production2[9]; ?>, <?php echo $prod_exp2[9]; ?>],
+      ['Nov', <?php echo $production2[10]; ?>, <?php echo $prod_exp2[10]; ?>],
+      ['Dec', <?php echo $production2[11]; ?>, <?php echo $prod_exp2[11]; ?>]
+    ]);
+
+    var options = {
+      title: 'All Incoming Production 2025',
+      curveType: 'function',
+      seriesType: 'bars',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('production_chart_2'));
     chart.draw(data, options);
   }
 </script>

@@ -99,12 +99,16 @@ class Models extends CI_Model {
                 }else{
                     $id_product= $id['id'];
                 }
-            
+                $mfg_date = new DateTime($row[4]);
+                $exp_date = clone $mfg_date; // Clone to avoid modifying the original date
+                $exps =  $row[5];
+                $exp_date->modify('+'.$exps.' year');
                 $dataToInsert = array(
                     'id_product' => $id_product,
                     'load_number' => $row[2],
                     'qty' => $row[3],
                     'production_date' => $row[4],
+                    'exp_date' => $exp_date->format('Y-m-d'),
                     'created_by' => $id_user,
                     'updated_by' => $id_user
                     // Lanjutkan untuk kolom-kolom lainnya
@@ -208,7 +212,7 @@ class Models extends CI_Model {
         return $data;
     }
     public function QC($start_date,$end_date,$user,$id_product){
-        $this->db->select('a.id,a.production_date,a.qty,a.load_number,a.created_at,b.code,b.label');
+        $this->db->select('a.id,a.production_date,a.exp_date,a.qty,a.load_number,a.created_at,b.code,b.label');
         $this->db->from('qc a');
         $this->db->join('product b','a.id_product = b.id','left');
         if($start_date != "" && $end_date != ""){

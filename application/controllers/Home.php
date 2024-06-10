@@ -59,7 +59,6 @@ class Home extends CI_Controller {
             }
             $forecast = (int)$this->Models->SumDatetoDate("forecast","2024-".$i."-01","2024-".$i."-31","date","forecast","","")->forecast;   
             $data['forecast'][$i-1] = (int)$forecast;
-            
 
             $production = (int)$this->Models->SumDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date","qty","","")->qty;   
             $data['production'][$i-1] = (int)$production;
@@ -91,6 +90,31 @@ class Home extends CI_Controller {
                 $data['exp2'][$i-1] = (int)$exp2;
             }
 
+            $production1 = (int)$this->Models->SumDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","production_date","qty","","")->qty; 
+            $prod_exp1 = (int)$this->Models->SumDatetoDate("qc","2024-".$i."-01","2024-".$i."-31","exp_date","qty","","")->qty;   
+            if($production1==null){
+                $data['production1'][$i-1] = 0;
+            }else{
+                $data['production1'][$i-1] = (int)$production1;
+            }
+            if($prod_exp1==null){
+                $data['prod_exp1'][$i-1] = 0;
+            }else{
+                $data['prod_exp1'][$i-1] = (int)$prod_exp1;
+            }
+
+            $production2 = (int)$this->Models->SumDatetoDate("qc","2025-".$i."-01","2025-".$i."-31","production_date","qty","","")->qty; 
+            $prod_exp2 = (int)$this->Models->SumDatetoDate("qc","2025-".$i."-01","2025-".$i."-31","exp_date","qty","","")->qty;   
+            if($production1==null){
+                $data['production2'][$i-1] = 0;
+            }else{
+                $data['production2'][$i-1] = (int)$production2;
+            }
+            if($prod_exp2==null){
+                $data['prod_exp2'][$i-1] = 0;
+            }else{
+                $data['prod_exp2'][$i-1] = (int)$prod_exp2;
+            }
 
             if((int)$forecast!=0){
                     if((int)$production!=0){
